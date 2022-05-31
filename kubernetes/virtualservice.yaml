@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: nibas-events
+  namespace: nibas
+spec:
+  hosts:
+  - nibas-events.nibas.svc.cluster.local
+  - "nibas-events.dev.skip.statkart.no"
+  gateways:
+  - nibas-events
+  http:
+  - match:
+      - port: 80
+    route:
+    - destination:
+        host: nibas-events
+        port: 
+          number: 80

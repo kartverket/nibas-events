@@ -1,3 +1,4 @@
+import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -5,6 +6,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
+	id("io.gitlab.arturbosch.detekt") version "1.20.0"
 }
 
 group = "no.kartverket"
@@ -40,4 +42,18 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+tasks.getByName<Jar>("jar") {
+    enabled = false
+}
+
+detekt {
+	config = files("detekt.yml")
+}
+
+tasks.withType<Detekt>().configureEach {
+	reports {
+		sarif.required.set(true)
+	}
 }
