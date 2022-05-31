@@ -23,7 +23,7 @@ springdoc:
 
 spring:
   application:
-    name: nibas-backend
+    name: nibas-events
 
   jackson:
     time-zone: "Europe/Oslo"
