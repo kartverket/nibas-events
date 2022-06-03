@@ -13,6 +13,8 @@ Spring Boot applikasjon som håndterer events i Nasjonal inndelingsbase.
 
 # Kjøre på lokal maskin <a name="lokal"></a>
 ```
+# Start database
+docker run -d --name nibas-events-db -p 5433:5432 -e NIBAS_USER_PW=<sjekk-vault> -e POSTGRES_PASSWORD=secret -e POSTGRES_DB=nibas ghcr.io/kartverket/nibas-db:v0.0.81
 ./gradlew bootRun 
 ``` 
 

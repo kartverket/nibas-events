@@ -1,14 +1,11 @@
-package no.kartverket.nibas.api.v1.response
+package no.kartverket.nibas.api.v1.request
 
 import io.swagger.v3.oas.annotations.media.Schema
 import no.kartverket.nibas.api.v1.common.EventTarget
 import no.kartverket.nibas.api.v1.common.EventType
 
 @Schema(description = "En representasjon av en event")
-data class EventResponse(
-
-    @Schema(description = "ID-en til eventen")
-    val id: Long,
+data class EventRequest(
 
     @Schema(description = "Hvilken event har inntruffet")
     val type: EventType,
