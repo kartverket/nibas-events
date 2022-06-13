@@ -119,21 +119,24 @@ jobs:
 
     - name: Generate terraform variables
       run: |
-        cat <<EOF >> terraform.tfvars
+        cat <<EOF >> ${{ env.TF_ROOT }}/terraform.tfvars
         nibas_events_version="${{ needs.build.outputs.new_tag }}"
         EOF
     
     - name: Generate terraform backend variables
       run: |
-        cat <<EOF >> backend.tfbackend
+        cat <<EOF >> ${{ env.TF_ROOT }}/backend.tfbackend
         bucket="${{ env.BUCKET }}"
         EOF
     
     - name: Terraform init
       run: terraform init -input=false -backend-config=backend.tfbackend
+      working-directory: ${{ env.TF_ROOT }}
 
     - name: Terraform plan
       run: terraform plan -input=false
+      working-directory: ${{ env.TF_ROOT }}
 
     - name: Terraform apply
-      run: terraform apply -input=false -auto-approve          
+      run: terraform apply -input=false -auto-approve
+      working-directory: ${{ env.TF_ROOT }}
