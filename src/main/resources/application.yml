@@ -28,4 +28,44 @@ spring:
   jackson:
     time-zone: "Europe/Oslo"
 
+  cloud:
+    vault:
+      ssl:
+        trust-store: classpath:ca.jks
+        trust-store-type: jks
+        trust-store-password: changeit
+      connection-timeout: 5000
+      read-timeout: 15000
+  config:
+    import: vault://nibas/nibas-events-db
 
+  flyway:
+    schemas: nibas
+    user: ${spring.r2dbc.username}
+    password: ${spring.r2dbc.password}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  cloud:
+    vault:
+      uri: https://vault.dev.skip.statkart.no/
+      authentication: kubernetes
+      kubernetes:
+        role: nibas # Er en rolle definert hos skip
+        kubernetes-path: atkv1-dev
+        service-account-token-file: /var/run/secrets/kubernetes.io/serviceaccount/token
+---
+spring:
+  config:
+    activate:
+      on-profile: localhost
+    import: vault://nibas/nibas-events-db-local
+  cloud:
+    vault:
+      uri: https://vault.dev.skip.statkart.no/
+      authentication: token
+      token: ${VAULT_TOKEN}
+      enabled: true

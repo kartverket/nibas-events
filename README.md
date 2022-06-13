@@ -13,7 +13,15 @@ Spring Boot applikasjon som håndterer events i Nasjonal inndelingsbase.
 
 # Kjøre på lokal maskin <a name="lokal"></a>
 ```
+# Autentisering mot github container registry
+For å pulle database-image må man ha autentisert seg mot github container registry: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-to-the-container-registry
+
+# Start database (dersom du sitter på windows må du spesifisere -e PGDATA=<vilkårlig folder-navn>, ellers klages det på at den ikke kan kjøre chmod på default-mapper) 
+docker run -d --name nibas-events-db -p 5433:5432 -e NIBAS_USER_PW=<sjekk-vault> -e POSTGRES_PASSWORD=secret -e POSTGRES_DB=nibas ghcr.io/kartverket/nibas-db:v<siste versjonsnummer>
+
+#Start applikasjon
 ./gradlew bootRun 
+Alternativt starte fra intellij (NibasEventsApplication) og spesifisere environment variable: VAULT_TOKEN=<vault-token>, samt sette active profile = localhost
 ``` 
 
 # Hente docker image fra ghcr.io

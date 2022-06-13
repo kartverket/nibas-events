@@ -1,0 +1,11 @@
+spring:
+  flyway:
+    enabled: false
+  cloud:
+    vault:
+      enabled: false
+
+  r2dbc:
+    username: user
+    password: password
+    url: r2dbc:postgresql://localhost:5433/nibas
