@@ -35,6 +35,9 @@ resource "kubernetes_stateful_set" "nibas-kafka" {
 
     template {
       metadata {
+        annotations = {
+          "seccomp.security.alpha.kubernetes.io/pod" = "runtime/default"
+        }
         labels = {
           k8s-app = "nibas-kafka"
         }
