@@ -64,6 +64,11 @@ resource "kubernetes_stateful_set" "nibas-kafka" {
           empty_dir {}
         }
 
+        volume {
+          name = "nibas-kafka-var-log"
+          empty_dir {}
+        }
+
         container {
           name              = "nibas-kafka"
           image             = "confluentinc/cp-kafka:latest"
@@ -98,7 +103,7 @@ resource "kubernetes_stateful_set" "nibas-kafka" {
 
           env {
             name  = "KAFKA_ADVERTISED_LISTENERS"
-            value = "PLAINTEXT://nibas-kafka:9092,PLAINTEXT_HOST://localhost:29092"
+            value = "PLAINTEXT://nibas-kafka:29092,PLAINTEXT_HOST://localhost:9092"
           }
 
           env {
@@ -128,6 +133,11 @@ resource "kubernetes_stateful_set" "nibas-kafka" {
           volume_mount {
             name       = "nibas-kafka-etc"
             mount_path = "/etc/kafka"
+          }
+
+          volume_mount {
+            name       = "nibas-kafka-var-log"
+            mount_path = "/var/log"
           }
         }
       }

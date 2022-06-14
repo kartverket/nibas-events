@@ -116,7 +116,7 @@ resource "kubernetes_stateful_set" "nibas-zookeeper" {
 
           env {
             name = "ZOOKEEPER_CLIENT_PORT"
-            value = 2181
+            value = 22181
           }
 
           env {
