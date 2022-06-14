@@ -55,7 +55,7 @@ resource "kubernetes_stateful_set" "nibas-kafka" {
         volume {
           name = "nibas-kafka-pv-vol-data"
           persistent_volume_claim {
-            claim_name = "nibas-zookeeper-pvc-data"
+            claim_name = "nibas-kafka-pvc-data"
           }
         }
 
