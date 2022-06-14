@@ -43,7 +43,7 @@ resource "kubernetes_stateful_set" "nibas-zookeeper" {
 
     selector {
       match_labels = {
-        k8s-app = "nibas-zookeeper"
+        app = "nibas-zookeeper"
       }
     }
 
@@ -55,7 +55,7 @@ resource "kubernetes_stateful_set" "nibas-zookeeper" {
           "seccomp.security.alpha.kubernetes.io/pod" = "runtime/default"
         }
         labels = {
-          k8s-app = "nibas-zookeeper"
+          app = "nibas-zookeeper"
         }
       }
 

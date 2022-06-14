@@ -27,7 +27,7 @@ resource "kubernetes_stateful_set" "nibas-kafka" {
 
     selector {
       match_labels = {
-        k8s-app = "nibas-kafka"
+        app = "nibas-kafka"
       }
     }
 
@@ -39,7 +39,7 @@ resource "kubernetes_stateful_set" "nibas-kafka" {
           "seccomp.security.alpha.kubernetes.io/pod" = "runtime/default"
         }
         labels = {
-          k8s-app = "nibas-kafka"
+          app = "nibas-kafka"
         }
       }
 
@@ -93,7 +93,7 @@ resource "kubernetes_stateful_set" "nibas-kafka" {
 
           env {
             name  = "KAFKA_ZOOKEEPER_CONNECT"
-            value = "${kubernetes_service.nibas-zookeeper-service.metadata.0.name}:${kubernetes_service.nibas-zookeeper-service.spec.0.port.0.target_port}"
+            value = "${kubernetes_service.nibas-zookeeper-service.metadata.0.name}:${kubernetes_service.nibas-zookeeper-service.spec.0.port.0.port}"
           }
 
           env {
