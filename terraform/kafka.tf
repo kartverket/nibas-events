@@ -127,7 +127,7 @@ resource "kubernetes_stateful_set" "nibas-kafka" {
 
           volume_mount {
             name       = "nibas-kafka-pv-vol-data"
-            mount_path = "/var/lib/kafka/data"
+            mount_path = "/var/lib/kafka"
           }
 
           volume_mount {
