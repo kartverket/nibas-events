@@ -30,22 +30,6 @@ resource "kubernetes_persistent_volume_claim" "nibas-zookeeper-pvc-logs" {
   }
 }
 
-resource "kubernetes_persistent_volume_claim" "nibas-zookeeper-etc" {
-  metadata {
-    name      = "nibas-zookeeper-etc"
-    namespace = local.namespace
-  }
-  spec {
-    storage_class_name = "standard-rwo"
-    access_modes       = ["ReadWriteOnce"]
-    resources {
-      requests = {
-        storage = "200M"
-      }
-    }
-  }
-}
-
 resource "kubernetes_stateful_set" "nibas-zookeeper" {
   metadata {
     namespace = local.namespace
@@ -100,9 +84,12 @@ resource "kubernetes_stateful_set" "nibas-zookeeper" {
 
         volume {
           name = "nibas-zookeeper-etc"
-          persistent_volume_claim {
-            claim_name = "nibas-zookeeper-etc"
-          }
+          empty_dir {}
+        }
+
+        volume {
+          name = "nibas-zookeeper-var-log"
+          empty_dir {}
         }
 
         container {
@@ -152,6 +139,10 @@ resource "kubernetes_stateful_set" "nibas-zookeeper" {
           volume_mount {
             name       = "nibas-zookeeper-etc"
             mount_path = "/etc/kafka"
+          }
+          volume_mount {
+            name       = "nibas-zookeeper-var-log"
+            mount_path = "/var/log"
           }
         }
       }
