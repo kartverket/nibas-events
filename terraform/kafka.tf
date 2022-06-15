@@ -101,11 +101,6 @@ resource "kubernetes_stateful_set" "nibas-kafka" {
             value = "${kubernetes_service.nibas-zookeeper-service.metadata.0.name}:${kubernetes_service.nibas-zookeeper-service.spec.0.port.0.port}"
           }
 
-#          env {
-#            name = "KAFKA_LISTENERS"
-#            value = "PLAINTEXT://localhost:9092"
-#          }
-
           env {
             name  = "KAFKA_ADVERTISED_LISTENERS"
             value = "PLAINTEXT://nibas-kafka:9092"
