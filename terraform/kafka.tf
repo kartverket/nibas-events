@@ -108,7 +108,7 @@ resource "kubernetes_stateful_set" "nibas-kafka" {
 
           env {
             name  = "KAFKA_ADVERTISED_LISTENERS"
-            value = "PLAINTEXT://nibas-kafka:9092"
+            value = "PLAINTEXT://nibas-kafka:29092"
           }
 
           env {
