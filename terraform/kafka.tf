@@ -103,12 +103,12 @@ resource "kubernetes_stateful_set" "nibas-kafka" {
 
           env {
             name  = "KAFKA_ADVERTISED_LISTENERS"
-            value = "PLAINTEXT://nibas-kafka:9092,PLAINTEXT_HOST://localhost:9092"
+            value = "PLAINTEXT://nibas-kafka:29092"
           }
 
           env {
             name  = "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"
-            value = "PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+            value = "PLAINTEXT:PLAINTEXT"
           }
 
           env {
