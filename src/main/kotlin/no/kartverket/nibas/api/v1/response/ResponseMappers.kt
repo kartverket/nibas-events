@@ -5,5 +5,12 @@ import no.kartverket.nibas.api.v1.common.EventType
 import no.kartverket.nibas.domain.Event
 
 fun Event.toEventResponse(): EventResponse {
-    return EventResponse(this.id, EventType.valueOf(this.type.name), EventTarget.valueOf(this.target.name), this.targetId)
+    return EventResponse(
+        uuid = this.uuid,
+        offset = this.offset,
+        type = EventType.valueOf(this.type.name),
+        target = EventTarget.valueOf(this.target.name),
+        targetId = this.targetId,
+        targetRevision = this.targetRevision,
+        timestamp = this.timestamp)
 }

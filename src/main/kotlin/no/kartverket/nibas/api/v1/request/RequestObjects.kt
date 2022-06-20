@@ -3,9 +3,13 @@ package no.kartverket.nibas.api.v1.request
 import io.swagger.v3.oas.annotations.media.Schema
 import no.kartverket.nibas.api.v1.common.EventTarget
 import no.kartverket.nibas.api.v1.common.EventType
+import java.time.Instant
 
 @Schema(description = "En representasjon av en event")
 data class EventRequest(
+
+    @Schema(description = "UUID for denne eventen")
+    val uuid: String,
 
     @Schema(description = "Hvilken event har inntruffet")
     val type: EventType,
@@ -14,5 +18,11 @@ data class EventRequest(
     val target: EventTarget,
 
     @Schema(description = "URL til representasjon av objektet etter event har inntruffet")
-    val href: String
+    val id: String,
+
+    @Schema(description = "Id til gjeldende revisjon av objektet")
+    val revision: Int,
+
+    @Schema(description = "Timestamp som beskriver når hendelsen skjedde")
+    val timestamp: Instant
 )

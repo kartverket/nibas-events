@@ -44,6 +44,23 @@ spring:
     user: ${spring.r2dbc.username}
     password: ${spring.r2dbc.password}
 
+  kafka:
+    bootstrap-servers: nibas-kafka:9092
+    consumer:
+      properties:
+        spring:
+          json:
+            value:
+              default:
+                type: no.kartverket.nibas.api.v1.request.EventRequest
+            trusted:
+              packages: no.kartverket.nibas.events.EventRequest.v1.request
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: nibas-events
+      auto-offset-reset: earliest
+
+
 ---
 spring:
   config:
@@ -69,3 +86,5 @@ spring:
       authentication: token
       token: ${VAULT_TOKEN}
       enabled: true
+  kafka:
+    bootstrap-servers: localhost:29092
