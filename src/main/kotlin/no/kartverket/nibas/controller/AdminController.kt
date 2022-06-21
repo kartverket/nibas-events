@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController
 import java.util.logging.Logger
 
 @RestController
-class NibasAdminController @Autowired constructor(val kafkaListenerEndpointRegistry: KafkaListenerEndpointRegistry) : AdminApi {
+class AdminController constructor(val kafkaListenerEndpointRegistry: KafkaListenerEndpointRegistry) : AdminApi {
 
     val logger = Logger.getLogger(this::class.java.name)
 
-    // TODO: Disse burde ha autentisering på seg
+    // TODO: NIBAS-486: Disse burde ha autentisering på seg
     override suspend fun stopKafkaListener() {
         logger.warning("Stopping kafka listener")
         runBlocking {
@@ -21,7 +21,7 @@ class NibasAdminController @Autowired constructor(val kafkaListenerEndpointRegis
         }
     }
 
-    // TODO: Disse burde ha autentisering på seg
+    // TODO: NIBAS-486: Disse burde ha autentisering på seg
     override suspend fun startKafkaListener() {
         logger.warning("Starting kafka listener")
         runBlocking {

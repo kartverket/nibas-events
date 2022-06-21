@@ -3,8 +3,7 @@ package no.kartverket.nibas.api.v1.response
 import io.swagger.v3.oas.annotations.media.Schema
 import no.kartverket.nibas.api.v1.common.EventTarget
 import no.kartverket.nibas.api.v1.common.EventType
-import java.sql.Timestamp
-import java.time.Instant
+import java.time.ZonedDateTime
 
 @Schema(description = "En representasjon av en event")
 data class EventResponse(
@@ -28,5 +27,5 @@ data class EventResponse(
     val targetRevision: Int,
 
     @Schema(description = "Når eventen skjedde")
-    val timestamp: Instant
+    val timestamp: ZonedDateTime
 )

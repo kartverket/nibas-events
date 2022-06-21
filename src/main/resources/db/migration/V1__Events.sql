@@ -7,5 +7,5 @@ CREATE TABLE events
     target          text      NOT NULL,
     target_id       text      NOT NULL,
     target_revision numeric   NOT NULL,
-    event_timestamp timestamp NOT NULL
+    event_timestamp timestamp with time zone NOT NULL
 )
