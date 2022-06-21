@@ -10,6 +10,9 @@ import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.support.KafkaHeaders
 import org.springframework.messaging.handler.annotation.Header
 import org.springframework.stereotype.Service
+import java.time.Instant
+import java.time.ZonedDateTime
+import java.util.*
 import java.util.logging.Logger
 
 @Service
@@ -19,10 +22,15 @@ class EventProcessor @Autowired constructor(val eventRepository: EventRepository
 
 
     @KafkaListener(id = NibasEventsConfig.nibasEventsListenerId, topics = [NibasEventsConfig.nibasEventsTopic])
-    fun consume(event: EventRequest, @Header(KafkaHeaders.OFFSET) offset: Long) {
-        logger.info("Consumed eventrequest: ${event.type}: ${event.target} med id ${event.id} (${event.timestamp.toString()}) -  OFFSET = $offset")
+    fun consume(eventRequest: EventRequest,
+                @Header(KafkaHeaders.OFFSET) offset: Long,
+                @Header(KafkaHeaders.RECEIVED_TIMESTAMP) timestamp: Long) {
+
+        val event = eventRequest.toEvent(offset, timestamp)
+        logger.info("Consumed event: ${event.type}: ${event.target} med id ${event.id} (${event.timestamp}) -  OFFSET = ${event.offset}")
+
         runBlocking {
-            eventRepository.save(event.toEvent(offset))
+            eventRepository.save(event)
         }
 
     }
