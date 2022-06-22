@@ -88,3 +88,6 @@ spring:
       enabled: true
   kafka:
     bootstrap-servers: localhost:29092
+nibas:
+  kafka:
+    autoStartup: false

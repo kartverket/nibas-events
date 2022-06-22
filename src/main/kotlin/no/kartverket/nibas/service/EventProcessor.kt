@@ -21,7 +21,7 @@ class EventProcessor @Autowired constructor(val eventRepository: EventRepository
     val logger = Logger.getLogger(this::class.java.name)
 
 
-    @KafkaListener(id = NibasEventsConfig.nibasEventsListenerId, topics = [NibasEventsConfig.nibasEventsTopic])
+    @KafkaListener(id = NibasEventsConfig.nibasEventsListenerId, topics = [NibasEventsConfig.nibasEventsTopic], autoStartup = "\${nibas.kafka.autoStartup:true}")
     fun consume(eventRequest: EventRequest,
                 @Header(KafkaHeaders.OFFSET) offset: Long,
                 @Header(KafkaHeaders.RECEIVED_TIMESTAMP) timestamp: Long) {
