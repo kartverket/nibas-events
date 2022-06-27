@@ -8,7 +8,7 @@ resource "kubernetes_deployment" "nibas-events-deployment" {
     }
   }
   spec {
-    replicas = 3
+    replicas = 1
     selector {
       match_labels = {
         app = "nibas-events"
