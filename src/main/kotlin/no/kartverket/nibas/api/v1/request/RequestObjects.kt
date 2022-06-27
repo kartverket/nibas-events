@@ -7,6 +7,9 @@ import no.kartverket.nibas.api.v1.common.EventType
 @Schema(description = "En representasjon av en event")
 data class EventRequest(
 
+    @Schema(description = "UUID for denne eventen")
+    val uuid: String,
+
     @Schema(description = "Hvilken event har inntruffet")
     val type: EventType,
 
@@ -14,5 +17,8 @@ data class EventRequest(
     val target: EventTarget,
 
     @Schema(description = "URL til representasjon av objektet etter event har inntruffet")
-    val href: String
+    val id: String,
+
+    @Schema(description = "Id til gjeldende revisjon av objektet")
+    val revision: Int
 )

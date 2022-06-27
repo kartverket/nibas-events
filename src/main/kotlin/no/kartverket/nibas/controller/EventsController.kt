@@ -24,9 +24,5 @@ class EventsController @Autowired constructor(
         val pageElements = eventRepository.findAllBy(pageRequest).map { it.toEventResponse() }
         return PageImpl(pageElements.toList(), pageRequest, eventRepository.count())
     }
-
-    override suspend fun leggTilEvent(eventRequest: EventRequest): EventResponse {
-        return eventRepository.save(eventRequest.toEvent()).toEventResponse()
-    }
 }
 

@@ -1,9 +1,9 @@
 package no.kartverket.nibas.api.v1.common
 
 enum class EventType {
-    OPPDATERT
+    ADDED, MODIFIED, DELETED
 }
 
 enum class EventTarget {
-    STEMMEKRETS, GRUNNKRETS
+    STEMMEKRETS, GRUNNKRETS, SKOLEKRETS, KOMMUNE, FYLKE, NASJON
 }

@@ -39,7 +39,4 @@ interface EventsApi {
         @RequestParam(name = "page", required = false) page: Int?,
         @Parameter(description = "size")
         @RequestParam(name = "size", required = false) size: Int?): Page<EventResponse>
-
-    @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
-    suspend fun leggTilEvent(@RequestBody eventRequest: EventRequest): EventResponse
 }

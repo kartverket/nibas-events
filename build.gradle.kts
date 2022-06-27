@@ -40,6 +40,8 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-kotlin:${DependencyVersions.SPRINGDOC_OPENAPI_VERSION}")
     implementation("org.springdoc:springdoc-openapi-webflux-ui:${DependencyVersions.SPRINGDOC_OPENAPI_VERSION}")
 
+    implementation("org.springframework.kafka:spring-kafka")
+
     implementation("org.flywaydb:flyway-core")
     implementation("org.springframework:spring-jdbc")
 
