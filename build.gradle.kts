@@ -6,7 +6,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.7.0"
     kotlin("plugin.spring") version "1.7.0"
-    id("org.flywaydb.flyway") version "8.5.13"
+    id("org.flywaydb.flyway") version "9.0.0"
     id("io.gitlab.arturbosch.detekt") version "1.20.0"
 }
 
