@@ -19,7 +19,7 @@ class NibasEventsConfig {
 
     @Bean
     fun openApiDef(): OpenAPI {
-        return OpenAPI().info(Info().title("NIBAS Events API").description("API for å hente events i Nasjonal inndelingsbase"))
+        return OpenAPI().info(Info().title("NIBAS Events API").description("API for å hente events i Nasjonal inndelingsbase").version("v1"))
     }
 
     @Bean
