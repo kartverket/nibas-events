@@ -29,7 +29,7 @@ resource "postgresql_database" "nibas-events-pg-db" {
 }
 
 resource "vault_generic_secret" "nibas-events-db-app-pw-vault" {
-  path = "nibas/nibas-events-db"
+  path = "nibas/nibas-events-db-outside"
 
   data_json = <<EOT
 {

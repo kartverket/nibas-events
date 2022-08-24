@@ -37,7 +37,7 @@ spring:
       connection-timeout: 5000
       read-timeout: 15000
   config:
-    import: vault://nibas/nibas-events-db
+    import: vault://nibas/nibas-events-db-outside
 
   flyway:
     schemas: nibas
