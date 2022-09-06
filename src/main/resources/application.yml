@@ -44,6 +44,10 @@ spring:
     user: ${spring.r2dbc.username}
     password: ${spring.r2dbc.password}
 
+  jpa:
+    properties:
+      hibernate.default_schema: nibas
+
   kafka:
     bootstrap-servers: nibas-kafka:9092
     consumer:
