@@ -37,16 +37,12 @@ spring:
       connection-timeout: 5000
       read-timeout: 15000
   config:
-    import: vault://nibas/nibas-events-db-outside
+    import: vault://nibas/nibas-events-db
 
   flyway:
     schemas: nibas
     user: ${spring.r2dbc.username}
     password: ${spring.r2dbc.password}
-
-  jpa:
-    properties:
-      hibernate.default_schema: nibas
 
   kafka:
     bootstrap-servers: nibas-kafka:9092
@@ -86,7 +82,7 @@ spring:
     import: vault://nibas/nibas-events-db-local
   cloud:
     vault:
-      uri: https://vault.dev.skip.statkart.no/
+      uri: ${VAULT_ADDR:https://vault.dev.skip.statkart.no/}
       authentication: token
       token: ${VAULT_TOKEN}
       enabled: true

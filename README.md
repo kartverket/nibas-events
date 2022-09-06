@@ -49,3 +49,23 @@ Gitt at <adresse-til-nibas-events> = localhost:8080
 Vi bruker EditorConfig for formatering (som IntelliJ default forstår). I tillegg benyttes Detekt i byggeløypa (anbefalt av SKIP). Dette kan en også sette opp i
 IntelliJ for å få varsler der. Gå til File->Settings->Plugins og installer Detekt-plugin. Etterpå gå til File->Settings->Tools->Detekt. Huk av Enable Detekt,
 Enable rules og Enable formatting. Under Configuration Files, legg til stien til detekt.yml som ligger på rota.
+
+# Opprette database i miljø
+For nibas-events må vi (foreløpig) opprette applikasjonsbruker og database manuelt.
+Root-bruker og connection-detaljer per miljø finnes i Vault under nøkkel `nibas-events-db-root`
+
+Logg på med root-bruker på gjeldende database og kjør følgende sql-er:
+```sql
+CREATE ROLE nibas WITH LOGIN PASSWORD '<lag et sikkert passord>';
+create database nibas with owner = nibas;
+```
+
+Opprett et innslag i Vault under nøkkel `nibas-events-db`. Dette skal ha følgende innhold:
+```json
+{
+  "spring.flyway.url": "jdbc:postgresql://<server>:<port>/nibas",
+  "spring.r2dbc.password": "<password>",
+  "spring.r2dbc.url": "r2dbc:postgresql://<server>:<port>/nibas",
+  "spring.r2dbc.username": "nibas"
+}
+```
