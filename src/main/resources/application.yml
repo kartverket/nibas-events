@@ -80,6 +80,8 @@ spring:
     activate:
       on-profile: localhost
     import: vault://nibas/nibas-events-db-local
+  flyway:
+    schemas: public
   cloud:
     vault:
       uri: ${VAULT_ADDR:https://vault.dev.skip.statkart.no/}
