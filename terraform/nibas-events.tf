@@ -1,4 +1,3 @@
-
 resource "kubernetes_deployment" "nibas-events-deployment" {
   metadata {
     name      = "nibas-events"
