@@ -97,14 +97,6 @@ jobs:
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v0
 
-    - name: Get JWT
-      id: githubtoken
-      uses: magic7s/expose-jwt-action@v0.1.1
-
-    - run: |
-        echo "TF_VAR_GITHUB_TOKEN=${{ steps.githubtoken.outputs.jwt }}" >> $GITHUB_ENV
-      
-
     # Authenticate with google cloud serviceaccount to have permissions in cluster.
     # Variabel project_id må settes til kubernetesprosjektet her.   
     - id: auth
@@ -126,8 +118,9 @@ jobs:
     - name: Generate terraform variables
       run: |
         cat <<EOF >> ${{ env.TF_ROOT }}/terraform.tfvars
-        vault_addr="${{ env.VAULT_ADDR }}"
-        vault_skip_verify="${{ env.VAULT_SKIP_VERIFY }}"
+        nibas_project_id="${{ env.NIBAS_PROJECT_ID }}"
+        kubernetes_project_id="${{ env.TF_VAR_PROJECT_ID }}"
+        kubernetes_cluster_name="${{ env.KUBERNETES_CLUSTER_NAME }}"
         nibas_events_version="${{ needs.build.outputs.new_tag }}"
         EOF
     
