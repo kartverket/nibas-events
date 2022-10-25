@@ -36,6 +36,12 @@ spring:
         trust-store-password: changeit
       connection-timeout: 5000
       read-timeout: 15000
+      uri: https://vault.vault:8200/
+      authentication: kubernetes
+      kubernetes:
+        role: nibas # Er en rolle definert hos skip
+        kubernetes-path: ${KUBERNETES_CLUSTER}
+        service-account-token-file: /var/run/secrets/kubernetes.io/serviceaccount/token
   config:
     import: vault://nibas/nibas-events-db
 
@@ -60,20 +66,6 @@ spring:
       group-id: nibas-events
       auto-offset-reset: earliest
 
-
----
-spring:
-  config:
-    activate:
-      on-profile: dev
-  cloud:
-    vault:
-      uri: https://vault.dev.skip.statkart.no/
-      authentication: kubernetes
-      kubernetes:
-        role: nibas # Er en rolle definert hos skip
-        kubernetes-path: atkv1-dev
-        service-account-token-file: /var/run/secrets/kubernetes.io/serviceaccount/token
 ---
 spring:
   config:
