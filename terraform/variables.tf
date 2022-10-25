@@ -1,14 +1,8 @@
-variable "nibas_events_version" {}
-variable "ENVIRONMENT" {}
-
-variable "nibas_project_id" {
-  type = string
-}
-
-variable "kubernetes_project_id" {
-  type = string
-}
-
-variable "kubernetes_cluster_name" {
-  type = string
-}
+variable "GCP_REGION" { type = string }
+variable "NIBAS_EVENTS_VERSION" { type = string }
+variable "ENVIRONMENT" { type = string }
+variable "NIBAS_PROJECT_ID" { type = string }
+variable "KUBERNETES_PROJECT_ID" { type = string }
+variable "KUBERNETES_CLUSTER" { type = string }
+variable "EXTERNAL_DNS_HOSTNAME" { type = string }
+variable "VAULT_ADDR" { type = string }
