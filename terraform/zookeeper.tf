@@ -33,7 +33,7 @@ resource "kubernetes_persistent_volume_claim" "nibas-zookeeper-pvc-logs" {
 resource "kubernetes_stateful_set" "nibas-zookeeper" {
   metadata {
     namespace = local.namespace
-    name = "nibas-zookeeper"
+    name      = "nibas-zookeeper"
   }
 
   spec {
@@ -61,11 +61,11 @@ resource "kubernetes_stateful_set" "nibas-zookeeper" {
 
       spec {
         image_pull_secrets {
-          name="nibas-pull-token-atkv1-kes"
+          name = "nibas-pull-token-atkv1-kes"
         }
         security_context {
           supplemental_groups = [1000]
-          fs_group = 1000
+          fs_group            = 1000
         }
 
         volume {
@@ -101,8 +101,8 @@ resource "kubernetes_stateful_set" "nibas-zookeeper" {
             privileged                 = false # Normal priviliges
             allow_privilege_escalation = false # Prevent reqests for root priviliges
             read_only_root_filesystem  = true  # Prevent writing to system files
-            run_as_user                = 1000   # Run as an unpriviliged user
-            run_as_group               = 1000   # Run as an unpriviliged group
+            run_as_user                = 1000  # Run as an unpriviliged user
+            run_as_group               = 1000  # Run as an unpriviliged group
           }
 
           resources {
@@ -115,12 +115,12 @@ resource "kubernetes_stateful_set" "nibas-zookeeper" {
           }
 
           env {
-            name = "ZOOKEEPER_CLIENT_PORT"
+            name  = "ZOOKEEPER_CLIENT_PORT"
             value = 22181
           }
 
           env {
-            name = "ZOOKEEPER_TICK_TIME"
+            name  = "ZOOKEEPER_TICK_TIME"
             value = 2000
           }
 
@@ -172,6 +172,6 @@ resource "kubernetes_service" "nibas-zookeeper-service" {
       port        = 22181
       target_port = 2181
     }
-    type     = "ClusterIP"
+    type = "ClusterIP"
   }
 }
