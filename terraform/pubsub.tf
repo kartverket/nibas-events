@@ -5,9 +5,9 @@ resource "google_pubsub_topic" "nibas-events" {
 
 # Service Account for nibas-backend
 resource "google_service_account" "nibas-events-publisher-sa" {
-  account_id  = "nibas-backend-publisher"
+  account_id   = "nibas-backend-publisher"
   display_name = "nibas-backend-publisher"
-  description = "SA for publishing events"
+  description  = "SA for publishing events"
 }
 
 resource "google_service_account_iam_member" "sa_iam_impersonate" {

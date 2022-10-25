@@ -1,95 +1,92 @@
-resource "kubernetes_deployment" "nibas-events-deployment" {
-  metadata {
-    name      = "nibas-events"
-    namespace = local.namespace
-    labels = {
-      "backstage.io/kubernetes-id" = "nibas"
+data "vault_generic_secret" "nibas_db_details" {
+  path = "nibas/nibas-events-db"
+}
+
+resource "kubernetes_manifest" "nibas_events_application" {
+  manifest = {
+    apiVersion = "skiperator.kartverket.no/v1alpha1"
+    kind       = "Application"
+    metadata = {
+      name      = "nibas-events"
+      namespace = "nibas"
     }
-  }
-  spec {
-    replicas = 1
-    selector {
-      match_labels = {
-        app = "nibas-events"
-      }
-    }
-    template {
-      metadata {
-        annotations = {
-          "prometheus.io/scrape" = "true"
-          "seccomp.security.alpha.kubernetes.io/pod" = "runtime/default"
-        }
-        labels = {
-          app = "nibas-events"
-          "backstage.io/kubernetes-id" = "nibas"
+    spec = {
+      image = "ghcr.io/kartverket/nibas-events:${var.NIBAS_EVENTS_VERSION}"
+      port  = 8080
+
+      ingresses = [var.EXTERNAL_DNS_HOSTNAME]
+      gcp = {
+        auth = {
+          serviceAccount = module.nibas-events-subscriber.sa-email
         }
       }
-      spec {
-        image_pull_secrets {
-          # Midlertidig PAT for Kenneth
-          name="nibas-pull-token-atkv1-kes"
+      replicas = {
+        min                  = 1
+        max                  = 2
+        targetCpuUtilization = 80
+      }
+
+
+      env = [
+        {
+          name  = "KUBERNETES_CLUSTER"
+          value = var.KUBERNETES_CLUSTER
         }
-        security_context {
-          supplemental_groups = [199]
-          fs_group = 199
+      ]
+      strategy = { type = "RollingUpdate" }
+
+      # Liveness probes define a resource that returns 200 OK when the app is running
+      # as intended. Returning a non-200 code will make kubernetes restart the app.
+      # Liveness is optional, but when provided path and port is required
+      liveness = {
+        path             = "/actuator/health"
+        port             = 8080
+        failureThreshold = 3
+        timeout          = 1
+        initialDelay     = 60
+      }
+
+      readiness = {
+        path = "/actuator/health"
+        port = 8080
+      }
+
+      resources = {
+        limits = {
+          cpu    = "1000m"
+          memory = "1G"
         }
-        container {
-          image = "ghcr.io/kartverket/nibas-events:${var.nibas_events_version}"
-          name  = "nibas-events"
-          security_context {
-            privileged                 = false # Normal priviliges
-            allow_privilege_escalation = false # Prevent reqests for root priviliges
-            read_only_root_filesystem  = true  # Prevent writing to system files
-            run_as_user                = 199   # Run as an unpriviliged user
-            run_as_group               = 199   # Run as an unpriviliged group
-          }
-          resources {
-            requests = {
-              memory = "1Gi"
+        requests = {
+          cpu    = "500m"
+          memory = "500M"
+        }
+      }
+
+      accessPolicy = {
+        outbound = {
+          rules = [
+            {
+              application = "vault"
+              namespace   = "vault"
             }
-            limits = {
-              memory = "1Gi"
+          ]
+
+          external = [
+            {
+              host = data.vault_generic_secret.nibas_db_details.data["db-host"]
+              ip   = data.vault_generic_secret.nibas_db_details.data["db-ip"]
+              ports = [
+                {
+                  name     = "PostgisPort"
+                  protocol = "TCP"
+                  port : 5432
+                }
+              ]
             }
-          }
-          env {
-            name  = "SPRING_PROFILES_ACTIVE"
-            value = var.ENVIRONMENT
-          }
-          port {
-            container_port = 8080
-          }
+          ]
         }
+
       }
     }
   }
-}
-
-resource "kubernetes_service" "nibas-events-service" {
-  metadata {
-    name      = "nibas-events"
-    namespace = local.namespace
-  }
-  spec {
-    selector = {
-      app = "nibas-events"
-    }
-    port {
-      protocol    = "TCP"
-      port        = 80
-      target_port = 8080
-    }
-    type     = "ClusterIP"
-  }
-}
-
-resource "kubernetes_manifest" "istio-destination-rule" {
-  manifest = yamldecode(file("${path.module}/kubernetes/destination-rule.yaml"))
-}
-
-resource "kubernetes_manifest" "istio-gateway" {
-  manifest = yamldecode(file("${path.module}/kubernetes/gateway.yaml"))
-}
-
-resource "kubernetes_manifest" "istio-virtualservice" {
-  manifest = yamldecode(file("${path.module}/kubernetes/virtualservice.yaml"))
 }

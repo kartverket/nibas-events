@@ -5,6 +5,7 @@ resource "google_pubsub_subscription" "subscription" {
 
 resource "google_service_account" "nibas-events-subscriber-sa" {
   account_id  = var.subscriber_name
+  display_name = var.subscriber_name
   description = "Service Account for the subscriber ${var.subscriber_name} of the topic ${var.topic}"
 }
 
