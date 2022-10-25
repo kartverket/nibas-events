@@ -16,7 +16,13 @@ provider "kubernetes" {
 }
 
 provider "google" {
-  project = var.nibas_project_id
+  project = var.NIBAS_PROJECT_ID
+  region  = var.GCP_REGION
+}
+
+provider "vault" {
+  address         = var.VAULT_ADDR
+  skip_tls_verify = true
 }
 
 locals {

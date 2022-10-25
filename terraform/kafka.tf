@@ -78,8 +78,8 @@ resource "kubernetes_stateful_set" "nibas-kafka" {
             privileged                 = false # Normal priviliges
             allow_privilege_escalation = false # Prevent reqests for root priviliges
             read_only_root_filesystem  = true
-            run_as_user                = 1000   # Run as an unpriviliged user
-            run_as_group               = 1000   # Run as an unpriviliged group
+            run_as_user                = 1000 # Run as an unpriviliged user
+            run_as_group               = 1000 # Run as an unpriviliged group
           }
 
           resources {
