@@ -30,12 +30,19 @@ spring:
 
   cloud:
     vault:
+      uri: https://vault.vault:8200
+      authentication: kubernetes
+      kubernetes:
+        role: nibas # Er en rolle definert hos skip
+        kubernetes-path: ${KUBERNETES_CLUSTER}
+        service-account-token-file: /var/run/secrets/kubernetes.io/serviceaccount/token
       ssl:
         trust-store: classpath:ca.jks
         trust-store-type: jks
         trust-store-password: changeit
       connection-timeout: 5000
       read-timeout: 15000
+
   config:
     import: vault://nibas/nibas-events-db
 
@@ -59,21 +66,11 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       group-id: nibas-events
       auto-offset-reset: earliest
+nibas:
+  kafka:
+    autoStartup: false
 
 
----
-spring:
-  config:
-    activate:
-      on-profile: dev
-  cloud:
-    vault:
-      uri: https://vault.dev.skip.statkart.no/
-      authentication: kubernetes
-      kubernetes:
-        role: nibas # Er en rolle definert hos skip
-        kubernetes-path: atkv1-dev
-        service-account-token-file: /var/run/secrets/kubernetes.io/serviceaccount/token
 ---
 spring:
   config:
