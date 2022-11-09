@@ -18,7 +18,7 @@ resource "google_service_account_iam_member" "sa_iam_impersonate" {
 
 resource "google_pubsub_topic_iam_binding" "nibas-events-publisher" {
   topic   = google_pubsub_topic.nibas-events.name
-  role    = "roles/pubsub.publisher"
+  role    = "roles/pubsub.admin"
   members = ["serviceAccount:${google_service_account.nibas-events-publisher-sa.email}"]
 }
 
