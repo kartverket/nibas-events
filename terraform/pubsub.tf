@@ -13,12 +13,12 @@ resource "google_service_account" "nibas-events-publisher-sa" {
 resource "google_service_account_iam_member" "sa_iam_impersonate" {
   service_account_id = google_service_account.nibas-events-publisher-sa.name
   role               = "roles/iam.workloadIdentityUser"
-  member             = "serviceAccount:${google_service_account.nibas-events-publisher-sa.email}"
+  member             = "serviceAccount:${var.KUBERNETES_PROJECT_ID}.svc.id.goog[nibas/nibas-backend]"
 }
 
 resource "google_pubsub_topic_iam_binding" "nibas-events-publisher" {
   topic   = google_pubsub_topic.nibas-events.name
-  role    = "roles/pubsub.admin"
+  role    = "roles/pubsub.publisher"
   members = ["serviceAccount:${google_service_account.nibas-events-publisher-sa.email}"]
 }
 
