@@ -31,6 +31,10 @@ resource "kubernetes_manifest" "nibas_events_application" {
         {
           name  = "KUBERNETES_CLUSTER"
           value = var.KUBERNETES_CLUSTER
+        },
+        {
+          name  = "GOOGLE_CLOUD_PROJECT"
+          value = var.NIBAS_PROJECT_ID
         }
       ]
       strategy = { type = "RollingUpdate" }

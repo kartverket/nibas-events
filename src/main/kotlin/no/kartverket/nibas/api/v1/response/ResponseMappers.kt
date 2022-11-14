@@ -7,7 +7,7 @@ import no.kartverket.nibas.domain.Event
 fun Event.toEventResponse(): EventResponse {
     return EventResponse(
         uuid = this.uuid,
-        offset = this.offset,
+        offset = this.id,
         type = EventType.valueOf(this.type.name),
         target = EventTarget.valueOf(this.target.name),
         targetId = this.targetId,

@@ -42,6 +42,12 @@ spring:
         trust-store-password: changeit
       connection-timeout: 5000
       read-timeout: 15000
+    gcp:
+      project-id: ${GOOGLE_CLOUD_PROJECT}
+      pubsub:
+        enabled: true
+      core:
+        enabled: true
 
   config:
     import: vault://nibas/nibas-events-db
@@ -51,25 +57,9 @@ spring:
     user: ${spring.r2dbc.username}
     password: ${spring.r2dbc.password}
 
-  kafka:
-    bootstrap-servers: nibas-kafka:9092
-    consumer:
-      properties:
-        spring:
-          json:
-            value:
-              default:
-                type: no.kartverket.nibas.api.v1.request.EventRequest
-            trusted:
-              packages: no.kartverket.nibas.events.EventRequest.v1.request
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      group-id: nibas-events
-      auto-offset-reset: earliest
 nibas:
-  kafka:
-    autoStartup: false
-
+  pubsub:
+    subscription: nibas-events-subscriber
 
 ---
 spring:
@@ -85,8 +75,9 @@ spring:
       authentication: token
       token: ${VAULT_TOKEN}
       enabled: true
-  kafka:
-    bootstrap-servers: localhost:29092
-nibas:
-  kafka:
-    autoStartup: false
+    gcp:
+      pubsub:
+        enabled: false
+      core:
+        enabled: false
+

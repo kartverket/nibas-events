@@ -9,7 +9,6 @@ import java.time.ZonedDateTime
 data class Event(
     @Id val id: Long,
     @Column("event_uuid") val uuid: String,
-    @Column("event_offset") val offset: Long,
     @Column("event_type") val type: EventType,
     @Column("target") val target: EventTarget,
     @Column("target_id") val targetId: String,

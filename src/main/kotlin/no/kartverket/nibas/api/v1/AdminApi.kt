@@ -19,8 +19,8 @@ interface AdminApi {
             description = "Successful operation",
         )
     )
-    @PutMapping("/kafka/stop")
-    suspend fun stopKafkaListener()
+    @PutMapping("/pubsub/stop")
+    suspend fun stopPubSubListener()
 
     @Operation(summary = "Starter å lytte på events fra nibas-backend")
     @ApiResponses(
@@ -29,7 +29,7 @@ interface AdminApi {
             description = "Successful operation",
         )
     )
-    @PutMapping("/kafka/start")
-    suspend fun startKafkaListener()
+    @PutMapping("/pubsub/start")
+    suspend fun startPubSubListener()
 
 }
