@@ -26,7 +26,7 @@ class EventProcessor @Autowired constructor(val eventRepository: EventRepository
     fun messageReceiver(payload: String, @Header(GcpPubSubHeaders.ORIGINAL_MESSAGE) message: BasicAcknowledgeablePubsubMessage) {
         val timestamp = message.pubsubMessage.publishTime
         val eventRequest = mapper.readValue(payload, EventRequest::class.java)
-        val event = eventRequest.toEvent(timestamp = timestamp.seconds)
+        val event = eventRequest.toEvent(timestamp = timestamp)
 
         runBlocking {
             eventRepository.save(event)
