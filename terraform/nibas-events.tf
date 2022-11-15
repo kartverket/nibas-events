@@ -53,7 +53,6 @@ resource "kubernetes_manifest" "nibas_events_application" {
 
       resources = {
         limits = {
-          cpu    = "1000m"
           memory = "1G"
         }
         requests = {
