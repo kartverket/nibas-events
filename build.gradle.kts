@@ -19,9 +19,9 @@ repositories {
     mavenCentral()
 }
 
-object DependencyVersions {
-    const val SPRINGDOC_OPENAPI_VERSION = "1.6.9"
-}
+// Dependency versions
+val SPRINGDOC_OPENAPI_VERSION = "1.6.9"
+val SPRING_CLOUD_GCP_STARTER = "3.4.0"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -36,11 +36,13 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter")
     implementation("org.springframework.cloud:spring-cloud-starter-vault-config:3.1.1")
 
-    implementation("org.springdoc:springdoc-openapi-webflux-core:${DependencyVersions.SPRINGDOC_OPENAPI_VERSION}")
-    implementation("org.springdoc:springdoc-openapi-kotlin:${DependencyVersions.SPRINGDOC_OPENAPI_VERSION}")
-    implementation("org.springdoc:springdoc-openapi-webflux-ui:${DependencyVersions.SPRINGDOC_OPENAPI_VERSION}")
+    implementation("org.springdoc:springdoc-openapi-webflux-core:$SPRINGDOC_OPENAPI_VERSION")
+    implementation("org.springdoc:springdoc-openapi-kotlin:$SPRINGDOC_OPENAPI_VERSION")
+    implementation("org.springdoc:springdoc-openapi-webflux-ui:$SPRINGDOC_OPENAPI_VERSION")
 
-    implementation("org.springframework.kafka:spring-kafka")
+    implementation("com.google.cloud:spring-cloud-gcp-starter:$SPRING_CLOUD_GCP_STARTER")
+    implementation("com.google.cloud:spring-cloud-gcp-pubsub:$SPRING_CLOUD_GCP_STARTER")
+    implementation("org.springframework.integration:spring-integration-core")
 
     implementation("org.flywaydb:flyway-core")
     implementation("org.springframework:spring-jdbc")

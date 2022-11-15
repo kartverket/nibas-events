@@ -24,8 +24,9 @@ resource "google_pubsub_topic_iam_binding" "nibas-events-publisher" {
 
 # The subscriber-application nibas-events
 module "nibas-events-subscriber" {
-  source          = "./subscriber"
-  subscriber_name = "nibas-events-subscriber"
-  topic           = google_pubsub_topic.nibas-events.name
-  iam_impersonate = true
+  source            = "./subscriber"
+  subscriber_name   = "nibas-events-subscriber"
+  topic             = google_pubsub_topic.nibas-events.name
+  iam_impersonate   = true
+  iam_kubernetes_sa = "serviceAccount:${var.KUBERNETES_PROJECT_ID}.svc.id.goog[nibas/nibas-events]"
 }

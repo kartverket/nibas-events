@@ -7,10 +7,9 @@ import java.time.Instant
 import java.time.ZonedDateTime
 import java.util.TimeZone
 
-fun EventRequest.toEvent(offset: Long, timestamp: Long): Event = Event(
+fun EventRequest.toEvent(timestamp: Long): Event = Event(
     id = 0,
     uuid = this.uuid,
-    offset = offset,
     type = EventType.valueOf(this.type.name),
     target = EventTarget.valueOf(this.target.name),
     targetId = this.id,

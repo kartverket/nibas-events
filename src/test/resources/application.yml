@@ -4,6 +4,11 @@ spring:
   cloud:
     vault:
       enabled: false
+    gcp:
+      pubsub:
+        enabled: false
+      core:
+        enabled: false
 
   r2dbc:
     username: user
