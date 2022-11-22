@@ -50,7 +50,7 @@ spring:
         enabled: true
 
   config:
-    import: vault://nibas/nibas-events-db
+    import: optional:vault://nibas/nibas-events-apikeys, optional:vault://nibas/nibas-events-db
 
   flyway:
     schemas: nibas
@@ -66,7 +66,6 @@ spring:
   config:
     activate:
       on-profile: localhost
-    import: vault://nibas/nibas-events-db-local
   flyway:
     schemas: public
   cloud:
