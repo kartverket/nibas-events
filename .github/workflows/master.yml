@@ -1,7 +1,7 @@
 name: nibas-master
 on:
   push:
-    branches: [ TS-630-legge-pa-attestering-av-image-nibas-events ]
+    branches: [ master ]
 
 permissions:
   id-token: write
@@ -134,7 +134,7 @@ jobs:
       image_url: ${{ needs.build.outputs.image_url}}
 
   deploy-test:
-    needs: build
+    needs: [build, security-scans]
     permissions:
       id-token: write
       pull-requests: write
@@ -153,4 +153,4 @@ jobs:
       service_account: nibas-deploy@nibas-test-36cb.iam.gserviceaccount.com
       vault_role: nibas-events-write-role
       project_id: kubernetes-test-94f6
-      deploy_on: 'refs/heads/TS-630-legge-pa-attestering-av-image-nibas-events'
+      deploy_on: 'refs/heads/master'
