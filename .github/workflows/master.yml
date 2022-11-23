@@ -114,7 +114,7 @@ jobs:
       working_directory: terraform
       workload_identity_provider: projects/747318126147/locations/global/workloadIdentityPools/nibas-deploy-pool/providers/github-provider
       service_account: ${{ needs.set-variables.outputs.dev_service_account}}
-      vault_role: nibas-events-read-role
+      vault_role: nibas-events-write-role
       project_id: kubernetes-dev-94b9
       deploy_on: 'refs/heads/master'
 
