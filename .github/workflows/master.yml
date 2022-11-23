@@ -151,6 +151,6 @@ jobs:
       working_directory: terraform
       workload_identity_provider: projects/935702487708/locations/global/workloadIdentityPools/nibas-deploy-pool/providers/github-provider
       service_account: nibas-deploy@nibas-test-36cb.iam.gserviceaccount.com
-      vault_role: nibas-events-read-role
+      vault_role: nibas-events-write-role
       project_id: kubernetes-test-94f6
       deploy_on: 'refs/heads/TS-630-legge-pa-attestering-av-image-nibas-events'
