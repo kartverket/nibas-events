@@ -2,6 +2,24 @@ data "vault_generic_secret" "nibas_db_details" {
   path = "nibas/nibas-events-db"
 }
 
+resource "random_password" "matrikkel_api_key" {
+  length  = 29
+  special = true
+  lower   = true
+  upper   = true
+  numeric = true
+}
+
+resource "vault_generic_secret" "nibas_events_api_keys_vault" {
+  path = "nibas/nibas-events-apikeys"
+
+  data_json = <<EOT
+{
+  "api.key.matrikkel":   "${random_password.matrikkel_api_key.result}"
+}
+EOT
+}
+
 resource "kubernetes_manifest" "nibas_events_application" {
   manifest = {
     apiVersion = "skiperator.kartverket.no/v1alpha1"
