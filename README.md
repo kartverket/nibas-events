@@ -12,19 +12,19 @@ Spring Boot applikasjon som håndterer events i Nasjonal inndelingsbase.
 `./gradlew assemble`
 
 # Kjøre på lokal maskin <a name="lokal"></a>
-## Start database 
-(dersom du sitter på windows må du spesifisere -e PGDATA=<vilkårlig folder-navn>, ellers klages det på at den ikke kan kjøre chmod på default-mapper)
+## Kjøre docker compose for å starte database og vault
+```docker-compose -f docker-compose-local.yml up --remove-orphans```
 
-```docker run --name nibas-events-db -e POSTGRES_PASSWORD=secret -d -p 5433:5432 postgis/postgis```
-
-## Kjøre Vault på egen maskin (kun nødvendig dersom du kjører uten VPN-tilkobling)
-```docker run -d -e 'VAULT_DEV_ROOT_TOKEN_ID=myroot' -e 'VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:1234' -p 8200:1234 --name vault vault```
+## Definer Vault adresse og token
+```export VAULT_ADDR=http://0.0.0.0:8200```
+og
+```export VAULT_TOKEN=myroot```
 
 ### Definer følgende på path /nibas/nibas-events-db-local i vault
 ```json
 {
   "spring.flyway.url": "jdbc:postgresql://localhost:5433/postgres",
-  "spring.r2dbc.password": "secret",
+  "spring.r2dbc.password": "nibas",
   "spring.r2dbc.url": "r2dbc:postgresql://localhost:5433/postgres",
   "spring.r2dbc.username": "postgres"
 }

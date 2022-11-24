@@ -2,11 +2,13 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.7.1"
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.7.0"
-    kotlin("plugin.spring") version "1.7.0"
-    id("org.flywaydb.flyway") version "8.5.13"
+    val kotlinPluginVersion = "1.7.21"
+
+    id("org.springframework.boot") version "2.7.5"
+    id("io.spring.dependency-management") version "1.1.0"
+    kotlin("jvm") version kotlinPluginVersion
+    kotlin("plugin.spring") version kotlinPluginVersion
+    id("org.flywaydb.flyway") version "9.8.2"
     id("io.gitlab.arturbosch.detekt") version "1.20.0"
 }
 
