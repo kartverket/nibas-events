@@ -22,7 +22,7 @@ repositories {
 }
 
 // Dependency versions
-val SPRINGDOC_OPENAPI_VERSION = "1.6.9"
+val SPRINGDOC_OPENAPI_VERSION = "1.6.13"
 val SPRING_CLOUD_GCP_STARTER = "3.4.0"
 
 dependencies {
