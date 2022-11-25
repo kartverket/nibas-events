@@ -24,6 +24,7 @@ repositories {
 // Dependency versions
 val SPRINGDOC_OPENAPI_VERSION = "1.6.13"
 val SPRING_CLOUD_GCP_STARTER = "3.4.0"
+val springSecurityCoreVersion = "5.7.5"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -38,6 +39,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.cloud:spring-cloud-starter")
     implementation("org.springframework.cloud:spring-cloud-starter-vault-config:3.1.1")
+
+    implementation("org.springframework.security:spring-security-core:$springSecurityCoreVersion")
 
     implementation("org.springdoc:springdoc-openapi-webflux-core:$SPRINGDOC_OPENAPI_VERSION")
     implementation("org.springdoc:springdoc-openapi-kotlin:$SPRINGDOC_OPENAPI_VERSION")
