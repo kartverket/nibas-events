@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     val kotlinPluginVersion = "1.7.21"
 
-    id("org.springframework.boot") version "2.7.5"
+    id("org.springframework.boot") version "2.7.6"
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version kotlinPluginVersion
     kotlin("plugin.spring") version kotlinPluginVersion
@@ -24,7 +24,9 @@ repositories {
 // Dependency versions
 val SPRINGDOC_OPENAPI_VERSION = "1.6.13"
 val SPRING_CLOUD_GCP_STARTER = "3.4.0"
-val springSecurityCoreVersion = "5.7.5"
+
+ext["snakeyaml.version"] = "1.32"
+ext["jackson-databind.version"] = "2.13.4.2"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -39,8 +41,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.cloud:spring-cloud-starter")
     implementation("org.springframework.cloud:spring-cloud-starter-vault-config:3.1.1")
-
-    implementation("org.springframework.security:spring-security-core:$springSecurityCoreVersion")
 
     implementation("org.springdoc:springdoc-openapi-webflux-core:$SPRINGDOC_OPENAPI_VERSION")
     implementation("org.springdoc:springdoc-openapi-kotlin:$SPRINGDOC_OPENAPI_VERSION")
