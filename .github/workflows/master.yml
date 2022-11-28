@@ -1,7 +1,7 @@
 name: nibas-master
 on:
   push:
-    branches: [ TS-646-legge-ut-nibas-events-i-prod ]
+    branches: [ master ]
 
 permissions:
   id-token: write
@@ -178,4 +178,4 @@ jobs:
       auth_project_number: 468770754406
       vault_role: nibas-events-write-role
       project_id: kubernetes-prod-e4a2
-      deploy_on: 'refs/heads/TS-646-legge-ut-nibas-events-i-prod'
+      deploy_on: 'refs/heads/master'
