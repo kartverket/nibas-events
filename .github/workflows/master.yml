@@ -109,7 +109,7 @@ jobs:
       environment: dev
       kubernetes_cluster: atkv1-dev
       terraform_workspace: dev
-      terraform_options: -var-file=variables/dev.tfvars
+      terraform_option_1: -var-file=variables/dev.tfvars
       terraform_option_2: -var=NIBAS_EVENTS_VERSION=${{ needs.build.outputs.new_tag }}
       terraform_init_option_1: -backend-config=backend/dev.gcs.tfbackend
       working_directory: terraform
@@ -148,7 +148,7 @@ jobs:
       environment: test
       kubernetes_cluster: atkv1-test
       terraform_workspace: test
-      terraform_options: -var-file=variables/test.tfvars
+      terraform_option_1: -var-file=variables/test.tfvars
       terraform_option_2: -var=NIBAS_EVENTS_VERSION=${{ needs.build.outputs.new_tag }}
       terraform_init_option_1: -backend-config=backend/test.gcs.tfbackend
       working_directory: terraform
@@ -171,7 +171,7 @@ jobs:
       environment: prod
       kubernetes_cluster: atkv1-prod
       terraform_workspace: prod
-      terraform_options: -var-file=variables/prod.tfvars
+      terraform_option_1: -var-file=variables/prod.tfvars
       terraform_option_2: -var=NIBAS_EVENTS_VERSION=${{ needs.build.outputs.new_tag }}
       terraform_init_option_1: -backend-config=backend/prod.gcs.tfbackend
       working_directory: terraform
