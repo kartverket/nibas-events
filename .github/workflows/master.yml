@@ -154,3 +154,25 @@ jobs:
       vault_role: nibas-events-write-role
       project_id: kubernetes-test-94f6
       deploy_on: 'refs/heads/master'
+
+  deploy-prod:
+    needs: [ build, post-build-attest, security-scans ] #, deploy-test ]
+    permissions:
+      id-token: write
+      pull-requests: write
+      contents: read
+      packages: write
+    uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v2.7.5
+    with:
+      runner: atkv1-prod
+      environment: prod
+      kubernetes_cluster: atkv1-prod
+      terraform_workspace: prod
+      terraform_options: -var-file=variables/prod.tfvars -var=NIBAS_EVENTS_VERSION=${{ needs.build.outputs.new_tag }}
+      terraform_backend_config: -backend-config=backend/prod.gcs.tfbackend
+      working_directory: terraform
+      workload_identity_provider: projects/935702487708/locations/global/workloadIdentityPools/nibas-deploy-pool/providers/github-provider
+      service_account: nibas-deploy@nibas-prod-732a.iam.gserviceaccount.com
+      vault_role: nibas-events-write-role
+      project_id: nibas-prod-732a
+      deploy_on: 'refs/heads/master'
