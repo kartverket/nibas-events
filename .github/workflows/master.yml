@@ -103,7 +103,7 @@ jobs:
       pull-requests: write
       contents: read
       packages: write
-    uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v2.7.5
+    uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v3.0.3
     with:
       runner: atkv1-dev
       environment: dev
@@ -140,7 +140,7 @@ jobs:
       pull-requests: write
       contents: read
       packages: write
-    uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v2.7.5
+    uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v3.0.3
     with:
       runner: atkv1-test
       environment: test
@@ -162,7 +162,7 @@ jobs:
       pull-requests: write
       contents: read
       packages: write
-    uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v2.7.5
+    uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v3.0.3
     with:
       runner: atkv1-prod
       environment: prod
@@ -174,5 +174,5 @@ jobs:
       workload_identity_provider: projects/935702487708/locations/global/workloadIdentityPools/nibas-deploy-pool/providers/github-provider
       service_account: nibas-deploy@nibas-prod-732a.iam.gserviceaccount.com
       vault_role: nibas-events-write-role
-      project_id: nibas-prod-732a
+      project_id: kubernetes-prod-e4a2
       deploy_on: 'refs/heads/TS-646-legge-ut-nibas-events-i-prod'
