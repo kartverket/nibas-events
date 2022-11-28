@@ -152,13 +152,13 @@ jobs:
       terraform_init_option_1: -backend-config=backend/test.gcs.tfbackend
       working_directory: terraform
       service_account: nibas-deploy@nibas-test-36cb.iam.gserviceaccount.com
-      auth_project_number: ${{ needs.set-variables.outputs.dev_auth_project_number}}
+      auth_project_number: ${{ needs.set-variables.outputs.test_auth_project_number}}
       vault_role: nibas-events-write-role
       project_id: kubernetes-test-94f6
       deploy_on: 'refs/heads/master'
 
   deploy-prod:
-    needs: [ build, post-build-attest, security-scans ] #, deploy-test ]
+    needs: [ build, post-build-attest, security-scans, deploy-test ]
     permissions:
       id-token: write
       pull-requests: write
@@ -175,7 +175,7 @@ jobs:
       terraform_init_option_1: -backend-config=backend/prod.gcs.tfbackend
       working_directory: terraform
       service_account: nibas-deploy@nibas-prod-732a.iam.gserviceaccount.com
-      auth_project_number: ${{ needs.set-variables.outputs.dev_auth_project_number}}
+      auth_project_number: ${{ needs.set-variables.outputs.prod_auth_project_number}}
       vault_role: nibas-events-write-role
       project_id: kubernetes-prod-e4a2
       deploy_on: 'refs/heads/TS-646-legge-ut-nibas-events-i-prod'
