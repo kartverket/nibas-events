@@ -1,7 +1,7 @@
 name: nibas-master
 on:
   push:
-    branches: [ master ]
+    branches: [ TS-646-legge-ut-nibas-events-i-prod ]
 
 permissions:
   id-token: write
@@ -175,4 +175,4 @@ jobs:
       service_account: nibas-deploy@nibas-prod-732a.iam.gserviceaccount.com
       vault_role: nibas-events-write-role
       project_id: nibas-prod-732a
-      deploy_on: 'refs/heads/master'
+      deploy_on: 'refs/heads/TS-646-legge-ut-nibas-events-i-prod'
