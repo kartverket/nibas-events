@@ -29,7 +29,16 @@ class EventProcessor @Autowired constructor(val eventRepository: EventRepository
         val event = eventRequest.toEvent(timestamp = timestamp)
 
         runBlocking {
-            eventRepository.save(event)
+            val toSave = when (val existing = eventRepository.findByUuid(event.uuid)) {
+                null -> event
+                else -> existing.copy(
+                    type = event.type,
+                    target = event.target,
+                    targetId = event.targetId,
+                    targetRevision = event.targetRevision,
+                    timestamp = event.timestamp)
+            }
+            eventRepository.save(toSave)
         }
 
         message.ack()

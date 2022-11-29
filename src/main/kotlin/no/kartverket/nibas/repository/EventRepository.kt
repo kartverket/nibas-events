@@ -7,4 +7,5 @@ import org.springframework.data.repository.kotlin.CoroutineSortingRepository
 
 interface EventRepository : CoroutineSortingRepository<Event, Long> {
     fun findAllBy(pageable: Pageable): Flow<Event>
+    suspend fun findByUuid(uuid: String): Event?
 }
