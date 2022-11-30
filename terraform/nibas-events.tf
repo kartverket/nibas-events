@@ -39,8 +39,8 @@ resource "kubernetes_manifest" "nibas_events_application" {
         }
       }
       replicas = {
-        min                  = 1
-        max                  = 2
+        min                  = 3
+        max                  = 3
         targetCpuUtilization = 80
       }
 
