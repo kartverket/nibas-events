@@ -1,16 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <provider class="net.logstash.logback.composite.loggingevent.ArgumentsJsonProvider" />
+        </encoder>
+    </appender>
+    <appender name="stdout_humanreadable" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>
                 %d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n
             </pattern>
         </encoder>
     </appender>
-    <appender name="ASYNC-STDOUT" class="ch.qos.logback.classic.AsyncAppender">
-        <appender-ref ref="STDOUT"/>
-    </appender>
 
-    <root level="info">
-        <appender-ref ref="ASYNC-STDOUT"/>
+    <root level="INFO">
+        <springProfile name="!humanReadableLog">
+            <appender-ref ref="stdout_json"/>
+        </springProfile>
+        <springProfile name="humanReadableLog">
+            <appender-ref ref="stdout_humanreadable"/>
+        </springProfile>
     </root>
 </configuration>

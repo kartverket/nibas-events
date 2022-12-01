@@ -24,6 +24,7 @@ repositories {
 // Dependency versions
 val SPRINGDOC_OPENAPI_VERSION = "1.6.13"
 val SPRING_CLOUD_GCP_STARTER = "3.4.0"
+val LOGSTASH_VERSION = "7.2"
 
 ext["snakeyaml.version"] = "1.32"
 ext["jackson-databind.version"] = "2.13.4.2"
@@ -52,6 +53,8 @@ dependencies {
 
     implementation("org.flywaydb:flyway-core")
     implementation("org.springframework:spring-jdbc")
+
+    implementation("net.logstash.logback:logstash-logback-encoder:$LOGSTASH_VERSION")
 
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("org.postgresql:r2dbc-postgresql")

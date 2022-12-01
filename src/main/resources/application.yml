@@ -25,6 +25,17 @@ spring:
   application:
     name: nibas-events
 
+  main:
+    banner-mode: "OFF"
+
+  jmx:
+    enabled: true
+
+  profiles:
+    group:
+      localhost:
+        - "humanReadableLog"
+
   jackson:
     time-zone: "Europe/Oslo"
 
