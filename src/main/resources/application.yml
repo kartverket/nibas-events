@@ -72,8 +72,6 @@ spring:
 
   flyway:
     schemas: nibas
-    user: ${spring.r2dbc.username}
-    password: ${spring.r2dbc.password}
 
 nibas:
   pubsub:
@@ -84,8 +82,10 @@ spring:
   config:
     activate:
       on-profile: localhost
-  flyway:
-    schemas: public
+  datasource:
+    url: ${DB_CONNECTION_STRING:jdbc:postgresql://localhost:5433/nibas}
+    username: ${DB_USER:nibas}
+    password: ${DB_PASSWORD:nibas}
   cloud:
     vault:
       uri: ${VAULT_ADDR:https://vault.dev.skip.statkart.no/}

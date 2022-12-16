@@ -16,7 +16,10 @@ services:
     ports:
       - "5433:5432"
     environment:
+      - POSTGRES_USER=nibas
       - POSTGRES_PASSWORD=nibas
+      - TZ=Europe/Oslo
+      - PGTZ=Europe/Oslo
 volumes:
   db_volume: {}
 

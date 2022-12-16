@@ -3,6 +3,7 @@ package no.kartverket.nibas.api.v1.response
 import no.kartverket.nibas.api.v1.common.EventTarget
 import no.kartverket.nibas.api.v1.common.EventType
 import no.kartverket.nibas.domain.Event
+import java.util.*
 
 fun Event.toEventResponse(): EventResponse {
     return EventResponse(
@@ -12,5 +13,5 @@ fun Event.toEventResponse(): EventResponse {
         target = EventTarget.valueOf(this.target.name),
         targetId = this.targetId,
         targetRevision = this.targetRevision,
-        timestamp = this.timestamp)
+        timestamp = this.timestamp.atZone(TimeZone.getDefault().toZoneId()))
 }

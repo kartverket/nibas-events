@@ -3,7 +3,7 @@ package no.kartverket.nibas.domain
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 
 @Table(name = "events")
 data class Event(
@@ -13,7 +13,7 @@ data class Event(
     @Column("target") val target: EventTarget,
     @Column("target_id") val targetId: String,
     @Column("target_revision") val targetRevision: Int,
-    @Column("event_timestamp") val timestamp: ZonedDateTime
+    @Column("event_timestamp") val timestamp: LocalDateTime
 )
 
 enum class EventType {

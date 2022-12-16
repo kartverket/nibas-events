@@ -9,8 +9,3 @@ spring:
         enabled: false
       core:
         enabled: false
-
-  r2dbc:
-    username: user
-    password: password
-    url: r2dbc:postgresql://localhost:5433/nibas

@@ -23,10 +23,9 @@ og
 ### Definer følgende på path /nibas/nibas-events-db-local i vault
 ```json
 {
-  "spring.flyway.url": "jdbc:postgresql://localhost:5433/postgres",
-  "spring.r2dbc.password": "nibas",
-  "spring.r2dbc.url": "r2dbc:postgresql://localhost:5433/postgres",
-  "spring.r2dbc.username": "postgres"
+  "spring.datasource.password": "nibas",
+  "spring.datasource.url": "jdbc:postgresql://localhost:5433/postgres",
+  "spring.datasource.username": "postgres"
 }
 ```
 
@@ -75,9 +74,8 @@ create database nibas with owner = nibas;
 Opprett et innslag i Vault under nøkkel `nibas-events-db`. Dette skal ha følgende innhold:
 ```json
 {
-  "spring.flyway.url": "jdbc:postgresql://<server>:<port>/nibas",
-  "spring.r2dbc.password": "<password>",
-  "spring.r2dbc.url": "r2dbc:postgresql://<server>:<port>/nibas",
-  "spring.r2dbc.username": "nibas"
+  "spring.datasource.password": "<password>",
+  "spring.datasource.url": "jdbc:postgresql://<server>:<port>/nibas",
+  "spring.datasource.username": "nibas"
 }
 ```
