@@ -38,7 +38,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.cloud:spring-cloud-starter")
-    implementation("org.springframework.cloud:spring-cloud-starter-vault-config:3.1.1")
+    implementation("org.springframework.cloud:spring-cloud-starter-vault-config:4.0.0")
 
     implementation("org.springdoc:springdoc-openapi-webmvc-core:$SPRINGDOC_OPENAPI_VERSION")
     implementation("org.springdoc:springdoc-openapi-kotlin:$SPRINGDOC_OPENAPI_VERSION")
