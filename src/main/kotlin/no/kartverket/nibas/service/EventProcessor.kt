@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.google.cloud.spring.pubsub.support.BasicAcknowledgeablePubsubMessage
 import com.google.cloud.spring.pubsub.support.GcpPubSubHeaders
-import kotlinx.coroutines.runBlocking
 import no.kartverket.nibas.api.v1.request.EventRequest
 import no.kartverket.nibas.api.v1.request.toEvent
 import no.kartverket.nibas.repository.EventRepository
@@ -19,8 +18,8 @@ import java.util.logging.Logger
 @ConditionalOnProperty(value = ["spring.cloud.gcp.pubsub.enabled"], havingValue = "true")
 class EventProcessor @Autowired constructor(val eventRepository: EventRepository) {
 
-    val logger = Logger.getLogger(this::class.java.name)
-    val mapper = ObjectMapper().registerModule(KotlinModule.Builder().build())
+    val logger: Logger = Logger.getLogger(this::class.java.name)
+    val mapper: ObjectMapper = ObjectMapper().registerModule(KotlinModule.Builder().build())
 
     @ServiceActivator(inputChannel = "inputMessageChannel")
     fun messageReceiver(payload: String, @Header(GcpPubSubHeaders.ORIGINAL_MESSAGE) message: BasicAcknowledgeablePubsubMessage) {
@@ -28,18 +27,15 @@ class EventProcessor @Autowired constructor(val eventRepository: EventRepository
         val eventRequest = mapper.readValue(payload, EventRequest::class.java)
         val event = eventRequest.toEvent(timestamp = timestamp)
 
-        runBlocking {
-            val toSave = when (val existing = eventRepository.findByUuid(event.uuid)) {
-                null -> event
-                else -> existing.copy(
-                    type = event.type,
-                    target = event.target,
-                    targetId = event.targetId,
-                    targetRevision = event.targetRevision,
-                    timestamp = event.timestamp)
-            }
-            eventRepository.save(toSave)
-        }
+        val toSave = eventRepository.findByUuid(event.uuid)?.copy(
+            type = event.type,
+            target = event.target,
+            targetId = event.targetId,
+            targetRevision = event.targetRevision,
+            timestamp = event.timestamp
+        ) ?: event
+
+        eventRepository.save(toSave)
 
         message.ack()
         logger.info("Consumed event: ${event.type}: ${event.target} med id ${event.id} (${event.timestamp})")

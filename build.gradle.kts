@@ -30,22 +30,20 @@ ext["snakeyaml.version"] = "1.32"
 ext["jackson-databind.version"] = "2.13.4.2"
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.cloud:spring-cloud-starter")
     implementation("org.springframework.cloud:spring-cloud-starter-vault-config:3.1.1")
 
-    implementation("org.springdoc:springdoc-openapi-webflux-core:$SPRINGDOC_OPENAPI_VERSION")
+    implementation("org.springdoc:springdoc-openapi-webmvc-core:$SPRINGDOC_OPENAPI_VERSION")
     implementation("org.springdoc:springdoc-openapi-kotlin:$SPRINGDOC_OPENAPI_VERSION")
-    implementation("org.springdoc:springdoc-openapi-webflux-ui:$SPRINGDOC_OPENAPI_VERSION")
+    implementation("org.springdoc:springdoc-openapi-ui:$SPRINGDOC_OPENAPI_VERSION")
+
 
     implementation("com.google.cloud:spring-cloud-gcp-starter:$SPRING_CLOUD_GCP_STARTER")
     implementation("com.google.cloud:spring-cloud-gcp-pubsub:$SPRING_CLOUD_GCP_STARTER")
@@ -57,10 +55,9 @@ dependencies {
     implementation("net.logstash.logback:logstash-logback-encoder:$LOGSTASH_VERSION")
 
     runtimeOnly("org.postgresql:postgresql")
-    runtimeOnly("org.postgresql:r2dbc-postgresql")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.projectreactor:reactor-test")
+    testImplementation("com.h2database:h2")
 
 }
 

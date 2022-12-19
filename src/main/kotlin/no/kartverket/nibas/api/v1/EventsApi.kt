@@ -23,7 +23,7 @@ interface EventsApi {
         )
     )
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
-    suspend fun hentEvents(
+    fun hentEvents(
         @Parameter(description = "page")
         @RequestParam(name = "page", required = false) page: Int?,
         @Parameter(description = "size")
