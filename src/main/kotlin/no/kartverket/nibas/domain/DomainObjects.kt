@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 import java.time.LocalDateTime
+import java.time.LocalDate
 
 @Table(name = "events")
 data class Event(
@@ -12,8 +13,9 @@ data class Event(
     @Column("event_type") val type: EventType,
     @Column("target") val target: EventTarget,
     @Column("target_id") val targetId: String,
-    @Column("target_revision") val targetRevision: Int,
-    @Column("event_timestamp") val timestamp: LocalDateTime
+    @Column("event_timestamp") val timestamp: LocalDateTime,
+    @Column("gyldigfra") val gyldigfra: LocalDate,
+    @Column("gyldigtil") val gyldigtil: LocalDate?
 )
 
 enum class EventType {

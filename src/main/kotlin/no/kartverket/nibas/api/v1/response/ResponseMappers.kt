@@ -12,6 +12,8 @@ fun Event.toEventResponse(): EventResponse {
         type = EventType.valueOf(this.type.name),
         target = EventTarget.valueOf(this.target.name),
         targetId = this.targetId,
-        targetRevision = this.targetRevision,
-        timestamp = this.timestamp.atZone(TimeZone.getDefault().toZoneId()))
+        timestamp = this.timestamp.atZone(TimeZone.getDefault().toZoneId()),
+        gyldigfra = this.gyldigfra,
+        gyldigtil = this.gyldigtil
+    )
 }
