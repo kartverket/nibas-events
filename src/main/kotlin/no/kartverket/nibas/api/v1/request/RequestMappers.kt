@@ -5,6 +5,7 @@ import no.kartverket.nibas.domain.Event
 import no.kartverket.nibas.domain.EventTarget
 import no.kartverket.nibas.domain.EventType
 import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.TimeZone
 
@@ -13,7 +14,9 @@ fun EventRequest.toEvent(timestamp: Timestamp): Event = Event(
     uuid = this.uuid,
     type = EventType.valueOf(this.type.name),
     target = EventTarget.valueOf(this.target.name),
-    targetId = this.id,
-    targetRevision = this.revision,
-    timestamp = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp.seconds, timestamp.nanos.toLong()), TimeZone.getDefault().toZoneId()))
+    targetId = this.lokalid ?: this.id!!,
+    timestamp = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp.seconds, timestamp.nanos.toLong()), TimeZone.getDefault().toZoneId()),
+    gyldigfra = this.gyldigfra ?: LocalDate.now(),
+    gyldigtil = this.gyldigtil
+)
 

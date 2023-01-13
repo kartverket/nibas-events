@@ -1,6 +1,7 @@
 package no.kartverket.nibas.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.google.cloud.spring.pubsub.support.BasicAcknowledgeablePubsubMessage
 import com.google.cloud.spring.pubsub.support.GcpPubSubHeaders
@@ -19,7 +20,7 @@ import java.util.logging.Logger
 class EventProcessor @Autowired constructor(val eventRepository: EventRepository) {
 
     val logger: Logger = Logger.getLogger(this::class.java.name)
-    val mapper: ObjectMapper = ObjectMapper().registerModule(KotlinModule.Builder().build())
+    val mapper: ObjectMapper = ObjectMapper().registerModule(KotlinModule.Builder().build()).registerModule(JavaTimeModule())
 
     @ServiceActivator(inputChannel = "inputMessageChannel")
     fun messageReceiver(payload: String, @Header(GcpPubSubHeaders.ORIGINAL_MESSAGE) message: BasicAcknowledgeablePubsubMessage) {
@@ -31,8 +32,9 @@ class EventProcessor @Autowired constructor(val eventRepository: EventRepository
             type = event.type,
             target = event.target,
             targetId = event.targetId,
-            targetRevision = event.targetRevision,
-            timestamp = event.timestamp
+            timestamp = event.timestamp,
+            gyldigfra = event.gyldigfra,
+            gyldigtil = event.gyldigtil
         ) ?: event
 
         eventRepository.save(toSave)
