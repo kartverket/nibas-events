@@ -90,7 +90,7 @@ jobs:
       actions: read
       security-events: write
       statuses: write
-    uses: kartverket/github-workflows/.github/workflows/post-build-attest.yml@v3.0.3
+    uses: kartverket/github-workflows/.github/workflows/post-build-attest.yml@v3.1.1
     with:
       auth_project_number: ${{ needs.set-variables.outputs.dev_auth_project_number}}
       service_account: ${{ needs.set-variables.outputs.dev_service_account}}
@@ -128,7 +128,7 @@ jobs:
       id-token: write
       actions: read
       security-events: write
-    uses: kartverket/github-workflows/.github/workflows/run-security-scans.yml@v3.0.3
+    uses: kartverket/github-workflows/.github/workflows/run-security-scans.yml@v3.1.1
     with:
       auth_project_number: ${{ needs.set-variables.outputs.dev_auth_project_number}}
       service_account: ${{ needs.set-variables.outputs.dev_service_account}}
