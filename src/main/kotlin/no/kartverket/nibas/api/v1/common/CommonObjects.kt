@@ -1,7 +1,7 @@
 package no.kartverket.nibas.api.v1.common
 
 enum class EventType {
-    ADDED, MODIFIED, DELETED
+    ADDED, MODIFIED, DELETED, EXPIRED
 }
 
 enum class EventTarget {
