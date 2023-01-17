@@ -15,7 +15,7 @@ fun EventRequest.toEvent(timestamp: Timestamp): Event = Event(
     target = EventTarget.valueOf(this.target.name),
     targetId = this.lokalid,
     timestamp = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp.seconds, timestamp.nanos.toLong()), TimeZone.getDefault().toZoneId()),
-    gyldigFra = this.gyldigFra ?: this.gyldigfra!!,
+    gyldigFra = this.gyldigFra,
     gyldigTil = this.gyldigTil
 )
 
