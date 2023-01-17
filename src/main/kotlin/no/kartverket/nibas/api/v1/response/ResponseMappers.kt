@@ -13,7 +13,7 @@ fun Event.toEventResponse(): EventResponse {
         target = EventTarget.valueOf(this.target.name),
         targetId = this.targetId,
         timestamp = this.timestamp.atZone(TimeZone.getDefault().toZoneId()),
-        gyldigfra = this.gyldigfra,
-        gyldigtil = this.gyldigtil
+        gyldigFra = this.gyldigFra,
+        gyldigTil = this.gyldigTil
     )
 }

@@ -33,8 +33,8 @@ class EventProcessor @Autowired constructor(val eventRepository: EventRepository
             target = event.target,
             targetId = event.targetId,
             timestamp = event.timestamp,
-            gyldigfra = event.gyldigfra,
-            gyldigtil = event.gyldigtil
+            gyldigFra = event.gyldigFra,
+            gyldigTil = event.gyldigTil
         ) ?: event
 
         eventRepository.save(toSave)

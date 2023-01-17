@@ -14,8 +14,8 @@ data class Event(
     @Column("target") val target: EventTarget,
     @Column("target_id") val targetId: String,
     @Column("event_timestamp") val timestamp: LocalDateTime,
-    @Column("gyldigfra") val gyldigfra: LocalDate,
-    @Column("gyldigtil") val gyldigtil: LocalDate?
+    @Column("gyldigfra") val gyldigFra: LocalDate,
+    @Column("gyldigtil") val gyldigTil: LocalDate?
 )
 
 enum class EventType {
