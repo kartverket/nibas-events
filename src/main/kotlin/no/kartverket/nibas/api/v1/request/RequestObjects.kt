@@ -17,18 +17,18 @@ data class EventRequest(
     @Schema(description = "Hvilket type objekt har event skjedd for")
     val target: EventTarget,
 
-    @Schema(description = "Objektid for objektet")
-    val id: String?,
-
     @Schema(description = "Lokalid for objektet")
-    val lokalid: String?,
+    val lokalid: String,
 
-    @Schema(description = "Id til gjeldende revisjon av objektet")
-    val revision: Int?,
-
-    @Schema(description = "Når eventen er gyldig fra")
+    @Schema(description = "Når eventen er gyldig fra, skal byttes ut med gyldigFra")
     val gyldigfra: LocalDate?,
 
+    @Schema(description = "Når eventen er gyldig til, kan være null, skal byttes ut med gyldigTil")
+    val gyldigtil: LocalDate?,
+
+    @Schema(description = "Når eventen er gyldig fra")
+    val gyldigFra: LocalDate?,
+
     @Schema(description = "Når eventen er gyldig til, kan være null")
-    val gyldigtil: LocalDate?
+    val gyldigTil: LocalDate?
 )

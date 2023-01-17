@@ -28,8 +28,8 @@ data class EventResponse(
     val timestamp: ZonedDateTime,
 
     @Schema(description = "Når eventen er gyldig fra")
-    val gyldigfra: LocalDate,
+    val gyldigFra: LocalDate,
 
     @Schema(description = "Når eventen er gyldig til, kan være null")
-    val gyldigtil: LocalDate?
+    val gyldigTil: LocalDate?
 )
