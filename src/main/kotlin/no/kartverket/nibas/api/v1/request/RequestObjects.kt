@@ -20,14 +20,8 @@ data class EventRequest(
     @Schema(description = "Lokalid for objektet")
     val lokalid: String,
 
-    @Schema(description = "Når eventen er gyldig fra, skal byttes ut med gyldigFra")
-    val gyldigfra: LocalDate?,
-
-    @Schema(description = "Når eventen er gyldig til, kan være null, skal byttes ut med gyldigTil")
-    val gyldigtil: LocalDate?,
-
     @Schema(description = "Når eventen er gyldig fra")
-    val gyldigFra: LocalDate?,
+    val gyldigFra: LocalDate,
 
     @Schema(description = "Når eventen er gyldig til, kan være null")
     val gyldigTil: LocalDate?
