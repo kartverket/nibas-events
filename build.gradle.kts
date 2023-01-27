@@ -34,7 +34,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
+//    implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.cloud:spring-cloud-starter")
@@ -46,7 +46,6 @@ dependencies {
 
 
     implementation("com.google.cloud:spring-cloud-gcp-starter:$SPRING_CLOUD_GCP_STARTER")
-    implementation("com.google.cloud:spring-cloud-gcp-pubsub:$SPRING_CLOUD_GCP_STARTER")
     implementation("org.springframework.integration:spring-integration-core")
 
     implementation("org.flywaydb:flyway-core")

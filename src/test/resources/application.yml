@@ -4,8 +4,3 @@ spring:
   cloud:
     vault:
       enabled: false
-    gcp:
-      pubsub:
-        enabled: false
-      core:
-        enabled: false

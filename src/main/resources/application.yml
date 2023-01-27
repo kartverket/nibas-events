@@ -60,22 +60,12 @@ spring:
         trust-store-password: changeit
       connection-timeout: 5000
       read-timeout: 15000
-    gcp:
-      project-id: ${GOOGLE_CLOUD_PROJECT}
-      pubsub:
-        enabled: true
-      core:
-        enabled: true
 
   config:
     import: optional:vault://nibas/nibas-events-apikeys, optional:vault://nibas/nibas-events-db
 
   flyway:
     schemas: nibas
-
-nibas:
-  pubsub:
-    subscription: nibas-events-subscriber
 
 ---
 spring:
@@ -92,9 +82,3 @@ spring:
       authentication: token
       token: ${VAULT_TOKEN}
       enabled: true
-    gcp:
-      pubsub:
-        enabled: false
-      core:
-        enabled: false
-
