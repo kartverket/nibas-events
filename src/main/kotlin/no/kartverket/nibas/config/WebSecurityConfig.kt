@@ -7,7 +7,6 @@ import org.springframework.core.annotation.Order
 import org.springframework.core.env.Environment
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
@@ -28,47 +27,66 @@ import javax.servlet.http.HttpServletResponse
 class WebSecurityConfig constructor(private val environment: Environment) {
 
     companion object {
+        const val ORDER_OF_PUBLISHER_API_KEY_FILTER_CHAIN: Int = SecurityProperties.BASIC_AUTH_ORDER - 2 // høyeste pri
+        const val ORDER_OF_CONSUMER_API_KEY_FILTER_CHAIN: Int = SecurityProperties.BASIC_AUTH_ORDER - 1 // laveste pri
+
         const val SECURITY_OFF_PROFILE_STRING = "security-off"
         const val PRODUCTION_PROFILE_STRING = "prod"
     }
 
     private val logger = Logger.getLogger(this::class.java.name)
 
+
+    @Order(ORDER_OF_PUBLISHER_API_KEY_FILTER_CHAIN)
     @Bean
-    fun apiKeySecurityFilterChain(httpSecurity: HttpSecurity): SecurityFilterChain {
+    fun publisherApiKeySecurityFilterChain(httpSecurity: HttpSecurity): SecurityFilterChain {
         return if (startedWithSecurityOff()) {
             filterChainForSecurityOff(httpSecurity)
         } else {
-            filterChainForApiKey(httpSecurity)
+            val kac = KeyAuthenticationConverter(mapOf(
+                "Publisher" to { environment.getRequiredProperty("api.key.publisher") }
+            ))
+            return genericApiKeySecurityFilterChain(kac, httpSecurity.antMatcher("/v1/events/publiser"))
         }
     }
 
-    private fun filterChainForApiKey(httpSecurity: HttpSecurity): SecurityFilterChain {
-        val kac = KeyAuthenticationConverter(mapOf(
-            "Matrikkel" to { environment.getRequiredProperty("api.key.matrikkel") }
-        ))
+    @Order(ORDER_OF_CONSUMER_API_KEY_FILTER_CHAIN)
+    @Bean
+    fun consumerApiKeySecurityFilterChain(httpSecurity: HttpSecurity): SecurityFilterChain {
+        return if (startedWithSecurityOff()) {
+            filterChainForSecurityOff(httpSecurity)
+        } else {
+            val kac = KeyAuthenticationConverter(mapOf(
+                "Consumer" to { environment.getRequiredProperty("api.key.consumer") }
+            ))
+            val consumerHttpSecurity = httpSecurity
+                .antMatcher("/**")
+                .authorizeRequests {
+                    it.antMatchers(
+                        "/actuator/health",
+                        "/actuator/info",
+                        "/api-docs/**",
+                        "/swagger-ui/**"
+                    ).permitAll() }
+            return genericApiKeySecurityFilterChain(kac, consumerHttpSecurity)
+        }
+    }
+
+    private fun genericApiKeySecurityFilterChain(kac: KeyAuthenticationConverter, httpSecurity: HttpSecurity): SecurityFilterChain {
 
         val apiKeyFilter = AuthenticationFilter(KeyAuthenticationManager(), kac)
-
         // Do nothing on successHandler, return response from original url
         apiKeyFilter.successHandler = AuthenticationSuccessHandler { _, _, _ -> }
 
-        return httpSecurity.antMatcher("/**")
-            .authorizeRequests {
-                it.antMatchers(
-                    "/actuator/health",
-                    "/actuator/info",
-                    "/api-docs/**",
-                    "/swagger-ui/**").permitAll()
-            }.addFilterAfter(apiKeyFilter, AbstractPreAuthenticatedProcessingFilter::class.java)
-            .exceptionHandling().authenticationEntryPoint(UnauthorizedEntryPoint()).and()
+        return httpSecurity
+            .addFilterAfter(apiKeyFilter, AbstractPreAuthenticatedProcessingFilter::class.java)
+            .exceptionHandling { it.authenticationEntryPoint(UnauthorizedEntryPoint()) }
             .csrf().disable()
             .formLogin().disable()
             .logout().disable()
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authorizeRequests { it.anyRequest().authenticated() }
             .build()
-
     }
 
     private fun filterChainForSecurityOff(httpSecurity: HttpSecurity): SecurityFilterChain {
@@ -84,6 +102,9 @@ class WebSecurityConfig constructor(private val environment: Environment) {
     fun startedWithSecurityOff() = environment.hasActiveProfile(SECURITY_OFF_PROFILE_STRING)
 }
 
+fun Environment.hasActiveProfile(profileString: String): Boolean =
+    listOf(*this.activeProfiles).contains(profileString)
+
 class UnauthorizedEntryPoint : AuthenticationEntryPoint {
     override fun commence(request: HttpServletRequest, response: HttpServletResponse, authException: AuthenticationException) {
         response.status = HttpStatus.UNAUTHORIZED.value()
@@ -97,7 +118,6 @@ class KeyAuthenticationManager : AuthenticationManager {
         }
         return authentication
     }
-
 }
 
 class KeyAuthenticationConverter(apiKeySuppliers: Map<String, () -> String>) : AuthenticationConverter {
@@ -130,7 +150,3 @@ class KeyAuthenticationToken(private val keySupplier: () -> String, private val 
         authenticated = isAuthenticated
     }
 }
-
-
-fun Environment.hasActiveProfile(profileString: String): Boolean =
-    listOf(*this.activeProfiles).contains(profileString)

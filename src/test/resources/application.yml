@@ -1,6 +1,6 @@
 spring:
   flyway:
-    enabled: false
+    schemas: nibas
   cloud:
     vault:
       enabled: false
