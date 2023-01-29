@@ -2,7 +2,15 @@ data "vault_generic_secret" "nibas_db_details" {
   path = "nibas/nibas-events-db"
 }
 
-resource "random_password" "matrikkel_api_key" {
+resource "random_password" "consumer_api_key" {
+  length  = 29
+  special = true
+  lower   = true
+  upper   = true
+  numeric = true
+}
+
+resource "random_password" "publisher_api_key" {
   length  = 29
   special = true
   lower   = true
@@ -15,7 +23,8 @@ resource "vault_generic_secret" "nibas_events_api_keys_vault" {
 
   data_json = <<EOT
 {
-  "api.key.matrikkel":   "${random_password.matrikkel_api_key.result}"
+  "api.key.consumer":   "${random_password.consumer_api_key.result}",
+  "api.key.publisher":  "${random_password.publisher_api_key.result}"
 }
 EOT
 }
