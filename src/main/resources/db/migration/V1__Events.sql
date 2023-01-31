@@ -1,11 +1,19 @@
-CREATE TABLE events
+CREATE TABLE event
 (
-    id              serial    not null primary key,
-    event_uuid      text      NOT NULL unique,
-    event_offset    numeric   NOT NULL,
+    uuid             text      NOT NULL primary key ,
+    eventnummer      serial    NOT NULL unique,
+    inntreffer       date      NOT NULL,
+    event_timestamp  timestamp with time zone NOT NULL
+);
+
+CREATE TABLE eventrad
+(
+    uuid            text      NOT NULL primary key,
     event_type      text      NOT NULL,
-    target          text      NOT NULL,
-    target_id       text      NOT NULL,
-    target_revision numeric   NOT NULL,
-    event_timestamp timestamp with time zone NOT NULL
-)
+    objekt_type     text      NOT NULL,
+    lokalid         text      NOT NULL,
+    event        text      NOT NULL,
+    CONSTRAINT event_fk
+        FOREIGN KEY (event)
+        REFERENCES event (uuid)
+);

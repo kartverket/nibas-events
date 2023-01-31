@@ -1,6 +1,6 @@
 package no.kartverket.nibas.api.v1.response
 
-import no.kartverket.nibas.api.v1.common.EventTarget
+import no.kartverket.nibas.api.v1.common.ObjektType
 import no.kartverket.nibas.api.v1.common.EventType
 import no.kartverket.nibas.domain.Event
 import java.util.*
@@ -8,12 +8,17 @@ import java.util.*
 fun Event.toEventResponse(): EventResponse {
     return EventResponse(
         uuid = this.uuid,
-        offset = this.id,
-        type = EventType.valueOf(this.type.name),
-        target = EventTarget.valueOf(this.target.name),
-        targetId = this.targetId,
+        eventnummer = this.eventNummer,
+        inntreffer = this.inntreffer,
         timestamp = this.timestamp.atZone(TimeZone.getDefault().toZoneId()),
-        gyldigFra = this.gyldigFra,
-        gyldigTil = this.gyldigTil
+        rader = this.eventRader.map {
+            EventResponseRad(
+                uuid = it.uuid,
+                type = EventType.valueOf(it.eventType.name),
+                objektType = ObjektType.valueOf(it.objektType.name),
+                lokalId = it.lokalId,
+                event = it.event
+            )
+        }.toSet(),
     )
 }

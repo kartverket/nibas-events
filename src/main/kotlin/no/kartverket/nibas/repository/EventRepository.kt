@@ -6,5 +6,4 @@ import org.springframework.data.repository.PagingAndSortingRepository
 
 interface EventRepository : PagingAndSortingRepository<Event, Long> {
     fun findAllBy(pageable: Pageable): List<Event>
-    fun findByUuid(uuid: String): Event?
 }

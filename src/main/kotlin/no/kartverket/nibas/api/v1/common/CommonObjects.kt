@@ -4,6 +4,6 @@ enum class EventType {
     ADDED, MODIFIED, EXPIRED
 }
 
-enum class EventTarget {
+enum class ObjektType {
     STEMMEKRETS, GRUNNKRETS, SKOLEKRETS, KOMMUNE, FYLKE, NASJON
 }
