@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.annotation.Order
 import org.springframework.core.env.Environment
+import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -46,7 +47,15 @@ class WebSecurityConfig constructor(private val environment: Environment) {
             val kac = KeyAuthenticationConverter(mapOf(
                 "Publisher" to { environment.getRequiredProperty("api.key.publisher") }
             ))
-            return genericApiKeySecurityFilterChain(kac, httpSecurity.antMatcher("/v1/events/publiser"))
+
+            val apiKeyFilter = AuthenticationFilter(KeyAuthenticationManager(), kac)
+            // Do nothing on successHandler, return response from original url
+            apiKeyFilter.successHandler = AuthenticationSuccessHandler { _, _, _ -> }
+
+            return commonFilterChainConfig(
+                kac,
+                httpSecurity.requestMatchers { it.antMatchers(HttpMethod.POST, "/v1/events") }
+            )
         }
     }
 
@@ -59,20 +68,16 @@ class WebSecurityConfig constructor(private val environment: Environment) {
             val kac = KeyAuthenticationConverter(mapOf(
                 "Consumer" to { environment.getRequiredProperty("api.key.consumer") }
             ))
-            val consumerHttpSecurity = httpSecurity
-                .antMatcher("/**")
-                .authorizeRequests {
-                    it.antMatchers(
-                        "/actuator/health",
-                        "/actuator/info",
-                        "/api-docs/**",
-                        "/swagger-ui/**"
-                    ).permitAll() }
-            return genericApiKeySecurityFilterChain(kac, consumerHttpSecurity)
+
+            val apiKeyFilter = AuthenticationFilter(KeyAuthenticationManager(), kac)
+            // Do nothing on successHandler, return response from original url
+            apiKeyFilter.successHandler = AuthenticationSuccessHandler { _, _, _ -> }
+
+            return commonFilterChainConfig(kac, httpSecurity.antMatcher("/v1/events"))
         }
     }
 
-    private fun genericApiKeySecurityFilterChain(kac: KeyAuthenticationConverter, httpSecurity: HttpSecurity): SecurityFilterChain {
+    private fun commonFilterChainConfig(kac: KeyAuthenticationConverter, httpSecurity: HttpSecurity): SecurityFilterChain {
 
         val apiKeyFilter = AuthenticationFilter(KeyAuthenticationManager(), kac)
         // Do nothing on successHandler, return response from original url
@@ -87,6 +92,7 @@ class WebSecurityConfig constructor(private val environment: Environment) {
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authorizeRequests { it.anyRequest().authenticated() }
             .build()
+
     }
 
     private fun filterChainForSecurityOff(httpSecurity: HttpSecurity): SecurityFilterChain {

@@ -3,7 +3,7 @@ package no.kartverket.nibas.inttest
 import no.kartverket.nibas.domain.Event
 import no.kartverket.nibas.domain.EventRad
 import no.kartverket.nibas.domain.EventType
-import no.kartverket.nibas.domain.ObjektType
+import no.kartverket.nibas.domain.FlateType
 import no.kartverket.nibas.events.EventService
 import no.kartverket.nibas.repository.EventRepository
 import org.assertj.core.api.Assertions.*
@@ -33,14 +33,13 @@ class EventServiceIntTest : TestWithDbContainer() {
 
     @Test
     fun testSaveEntity() {
-        val newEvent = buildEvent()
-        eventService.lagreEvent(newEvent)
+        val newEvent = eventService.lagreEvent(buildEvent())
 
         val pageRequest = PageRequest.of( 0,  10)
         val findEventsBy = eventService.findEventsBy(pageRequest)
         val savedEvent = findEventsBy[0]
         assertThat(findEventsBy.size).isEqualTo(1)
-        assertThat(savedEvent.uuid).isEqualTo(newEvent.uuid)
+        assertThat(savedEvent.id).isEqualTo(newEvent.id)
     }
 
     @Test
@@ -56,8 +55,7 @@ class EventServiceIntTest : TestWithDbContainer() {
 
     @Test
     fun testRaderIsDeleted() {
-        val newEvent = buildEvent()
-        eventService.lagreEvent(newEvent)
+        val newEvent = eventService.lagreEvent(buildEvent())
 
         eventRepository.delete(newEvent)
 
@@ -77,25 +75,22 @@ interface EventRadRepository : CrudRepository<EventRad, String> {
 }
 
 fun buildEvent(): Event {
-    val eventId = UUID.randomUUID().toString()
-
     return Event(
-        uuid = eventId,
-        eventNummer = 0,
+        id = 0,
         inntreffer = LocalDate.now(),
         timestamp = LocalDateTime.now(),
         eventRader = setOf(
-            buildEventRad(eventId)
+            buildEventRad()
         ),
     )
 }
 
-fun buildEventRad(eventId: String): EventRad {
+fun buildEventRad(): EventRad {
     return EventRad(
         uuid = UUID.randomUUID().toString(),
         eventType = EventType.MODIFIED,
-        objektType = ObjektType.GRUNNKRETS,
+        flateType = FlateType.GRUNNKRETS,
         lokalId = UUID.randomUUID().toString(),
-        event = eventId,
+        eventId = 0,
     )
 }
