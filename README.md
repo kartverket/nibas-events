@@ -28,6 +28,13 @@ og
   "spring.datasource.username": "postgres"
 }
 ```
+### Ønsker man teste endepunkter med sikkerhet, må det legges inn apiKeys på path /nibas/nibas-events-apikeys i Vault
+```json
+{
+  "api.key.publisher": "<apiKey for å kunne bruke /v1/events/publiser>",
+  "api.key.consumer": "<apiKey for å kunne bruke /v1/events>"
+}
+```
 
 ### Start applikasjon
 ```./gradlew bootRun --args='--spring.profiles.active=localhost'```

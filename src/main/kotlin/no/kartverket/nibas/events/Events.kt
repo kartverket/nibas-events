@@ -1,6 +1,5 @@
 package no.kartverket.nibas.events
 
-import com.google.protobuf.Timestamp
 import no.kartverket.nibas.api.v1.EventsApi
 import no.kartverket.nibas.api.v1.request.EventRequest
 import no.kartverket.nibas.api.v1.request.toEvent
@@ -29,8 +28,8 @@ class EventsController(
     }
 
     override fun publiserEvent(eventRequest: EventRequest) {
-        val event = eventService.lagreEvent(eventRequest.toEvent(Timestamp.getDefaultInstance()))
-        logger.info("Event saved" + event.uuid + " " + eventRequest.inntreffer)
+        val event = eventService.lagreEvent(eventRequest.toEvent())
+        logger.info("Event lagret: ${event.id}. Rader: ${event.eventRader.map { it.uuid }}")
     }
 }
 

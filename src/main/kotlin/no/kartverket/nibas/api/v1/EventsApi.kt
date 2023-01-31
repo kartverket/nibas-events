@@ -31,7 +31,7 @@ interface EventsApi {
     @Operation(description = "Publiserer event til Nibas Event")
     @ApiResponses(ApiResponse(responseCode = "201",description = "Created",))
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping( "/publiser", produces = [MediaType.APPLICATION_JSON_VALUE])
+    @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     fun publiserEvent(
         @Parameter(description = "event") @RequestBody(required = true) eventRequest: EventRequest
     )
