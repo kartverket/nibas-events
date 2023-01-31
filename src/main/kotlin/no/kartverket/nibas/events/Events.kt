@@ -29,8 +29,8 @@ class EventsController(
     }
 
     override fun publiserEvent(eventRequest: EventRequest) {
-        eventService.lagreEvent(eventRequest.toEvent(Timestamp.getDefaultInstance()))
-        logger.info("Event saved" + eventRequest.lokalid + " " + eventRequest.gyldigFra)
+        val event = eventService.lagreEvent(eventRequest.toEvent(Timestamp.getDefaultInstance()))
+        logger.info("Event saved" + event.uuid + " " + eventRequest.inntreffer)
     }
 }
 
@@ -39,8 +39,8 @@ class EventService(
     private val eventRepository: EventRepository
 ) {
     @Transactional
-    fun lagreEvent(event: Event) {
-        eventRepository.save(event)
+    fun lagreEvent(event: Event) : Event {
+        return eventRepository.save(event)
     }
     @Transactional(readOnly = true)
     fun findEventsBy(pageRequest: PageRequest): List<Event> {
