@@ -42,11 +42,6 @@ resource "kubernetes_manifest" "nibas_events_application" {
       port  = 8080
 
       ingresses = [var.EXTERNAL_DNS_HOSTNAME]
-      gcp = {
-        auth = {
-          serviceAccount = module.nibas-events-subscriber.sa-email
-        }
-      }
       replicas = {
         min                  = 3
         max                  = 3
