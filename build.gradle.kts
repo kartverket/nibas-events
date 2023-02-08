@@ -23,7 +23,6 @@ repositories {
 
 // Dependency versions
 val SPRINGDOC_OPENAPI_VERSION = "1.6.13"
-val SPRING_CLOUD_GCP_STARTER = "3.4.0"
 val LOGSTASH_VERSION = "7.2"
 
 ext["snakeyaml.version"] = "1.32"
@@ -44,7 +43,6 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-ui:$SPRINGDOC_OPENAPI_VERSION")
 
 
-    implementation("com.google.cloud:spring-cloud-gcp-starter:$SPRING_CLOUD_GCP_STARTER")
     implementation("org.springframework.integration:spring-integration-core")
 
     implementation("org.flywaydb:flyway-core")
