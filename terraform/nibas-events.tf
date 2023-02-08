@@ -84,6 +84,13 @@ resource "kubernetes_manifest" "nibas_events_application" {
       }
 
       accessPolicy = {
+        inbound = {
+          rules = [
+            {
+              application = "nibas-backend"
+            }
+          ]
+        }
         outbound = {
           rules = [
             {
