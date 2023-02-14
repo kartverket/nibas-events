@@ -14,7 +14,7 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import java.util.*
 
 @ActiveProfiles("security-off")
@@ -78,7 +78,7 @@ fun buildEvent(): Event {
     return Event(
         id = 0,
         inntreffer = LocalDate.now(),
-        timestamp = LocalDateTime.now(),
+        timestamp = OffsetDateTime.now(),
         eventRader = setOf(
             buildEventRad()
         ),

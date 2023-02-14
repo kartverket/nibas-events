@@ -1,7 +1,7 @@
 package no.kartverket.nibas.api.v1.response
 
-import no.kartverket.nibas.api.v1.common.FlateType
 import no.kartverket.nibas.api.v1.common.EventType
+import no.kartverket.nibas.api.v1.common.FlateType
 import no.kartverket.nibas.domain.Event
 
 fun Event.toEventResponse(): EventResponse {
@@ -10,7 +10,7 @@ fun Event.toEventResponse(): EventResponse {
         inntreffer = this.inntreffer,
         timestamp = this.timestamp,
         rader = this.eventRader.map {
-            EventResponseRad(
+            EventRadResponse(
                 type = EventType.valueOf(it.eventType.name),
                 flateType = FlateType.valueOf(it.flateType.name),
                 lokalId = it.lokalId,

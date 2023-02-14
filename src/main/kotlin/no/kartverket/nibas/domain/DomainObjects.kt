@@ -5,13 +5,13 @@ import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.MappedCollection
 import org.springframework.data.relational.core.mapping.Table
 import java.time.LocalDate
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 
 @Table(name = "event")
 data class Event(
-    @Id val id: Long,
+    @Id val id: Int,
     @Column("inntreffer") val inntreffer: LocalDate,
-    @Column("event_timestamp") val timestamp: LocalDateTime,
+    @Column("event_timestamp") val timestamp: OffsetDateTime,
     @MappedCollection(idColumn = "event_fk") val eventRader: Set<EventRad>
 )
 
