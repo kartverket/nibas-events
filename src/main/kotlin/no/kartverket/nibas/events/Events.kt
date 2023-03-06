@@ -28,6 +28,8 @@ class EventsController(
     }
 
     override fun publiserEvent(eventRequest: EventRequest) {
+        if (eventRequest.eventRader.isEmpty()) throw ManglendeEventRadException("Event må ha minst en EventRad")
+
         val event = eventService.lagreEvent(eventRequest.toEvent())
         logger.info("Event lagret: ${event.id}. Rader: ${event.eventRader.map { it.uuid }}")
     }
@@ -50,3 +52,5 @@ class EventService(
         return eventRepository.count()
     }
 }
+
+class ManglendeEventRadException(msg: String) : RuntimeException(msg)

@@ -42,11 +42,7 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-kotlin:$SPRINGDOC_OPENAPI_VERSION")
     implementation("org.springdoc:springdoc-openapi-ui:$SPRINGDOC_OPENAPI_VERSION")
 
-
-    implementation("org.springframework.integration:spring-integration-core")
-
     implementation("org.flywaydb:flyway-core")
-    implementation("org.springframework:spring-jdbc")
 
     implementation("net.logstash.logback:logstash-logback-encoder:$LOGSTASH_VERSION")
 
@@ -55,6 +51,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.testcontainers:postgresql:1.17.6")
     testImplementation("org.testcontainers:junit-jupiter:1.17.6")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
 }
 
 tasks.withType<KotlinCompile> {

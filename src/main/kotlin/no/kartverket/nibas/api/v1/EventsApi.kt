@@ -2,6 +2,8 @@ package no.kartverket.nibas.api.v1
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -21,7 +23,18 @@ import org.springframework.web.bind.annotation.ResponseStatus
 @Tag(name = "v1/events", description = "Endepunkter for events i Nasjonal inndelingsbase")
 interface EventsApi {
     @Operation(summary = "Hent events", description = "Henter events i Nasjonal Inndelingsbase", operationId = "hentEvents")
-    @ApiResponses(ApiResponse(responseCode = "200", description = "Successful operation",))
+    @ApiResponses(
+        ApiResponse(
+            responseCode = "200",
+            description = "Successful operation",
+            content = [
+                Content(
+                    mediaType = "application/json",
+                    schema = Schema(implementation = EventResponse::class)
+                )
+            ]
+        )
+    )
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     fun hentEvents(
         @Parameter(description = "page") @RequestParam(name = "page", required = false) page: Int?,
@@ -29,7 +42,10 @@ interface EventsApi {
     ): Page<EventResponse>
 
     @Operation(description = "Publiserer event til Nibas Event")
-    @ApiResponses(ApiResponse(responseCode = "201",description = "Created",))
+    @ApiResponses(
+        ApiResponse(responseCode = "201", description = "Created",),
+        ApiResponse(responseCode = "422", description = "Need atleast one EventRad in Event")
+    )
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     fun publiserEvent(
