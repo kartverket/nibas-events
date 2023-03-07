@@ -88,6 +88,10 @@ resource "kubernetes_manifest" "nibas_events_application" {
           rules = [
             {
               application = "nibas-backend"
+            },
+            {
+              application = "dataplattform-proxy"
+              namespace   = "dataplattform"
             }
           ]
         }
