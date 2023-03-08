@@ -88,6 +88,10 @@ resource "kubernetes_manifest" "nibas_events_application" {
           rules = [
             {
               application = "nibas-backend"
+            },
+            {
+              application = "dataplattform-proxy"
+              namespace   = "dataplattform"
             }
           ]
         }
@@ -116,5 +120,8 @@ resource "kubernetes_manifest" "nibas_events_application" {
 
       }
     }
+  }
+  field_manager {
+    force_conflicts = true
   }
 }
