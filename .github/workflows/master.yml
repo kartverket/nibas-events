@@ -80,22 +80,6 @@ jobs:
           echo "dev_auth_project_number=747318126147" >> $GITHUB_OUTPUT
           echo "dev_service_account=nibas-deploy@nibas-dev-075c.iam.gserviceaccount.com" >> $GITHUB_OUTPUT
 
-  post-build-attest:
-    needs: [build, set-variables]
-    name: Authentication and Attestation of Build
-    permissions:
-      contents: read
-      packages: write
-      id-token: write
-      actions: read
-      security-events: write
-      statuses: write
-    uses: kartverket/github-workflows/.github/workflows/post-build-attest.yml@v3.1.1
-    with:
-      auth_project_number: ${{ needs.set-variables.outputs.dev_auth_project_number}}
-      service_account: ${{ needs.set-variables.outputs.dev_service_account}}
-      image_url: ${{ needs.build.outputs.image_url}} # the image created by build job
-
   deploy-dev:
     needs: [build, set-variables]
     permissions:
@@ -103,7 +87,7 @@ jobs:
       pull-requests: write
       contents: read
       packages: write
-    uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v3.1.0
+    uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v4.0.0
     with:
       runner: atkv1-dev
       environment: dev
@@ -128,12 +112,11 @@ jobs:
       id-token: write
       actions: read
       security-events: write
-    uses: kartverket/github-workflows/.github/workflows/run-security-scans.yml@v3.1.1
+    uses: kartverket/github-workflows/.github/workflows/run-security-scans.yml@v4.0.0
     with:
       auth_project_number: ${{ needs.set-variables.outputs.dev_auth_project_number}}
       service_account: ${{ needs.set-variables.outputs.dev_service_account}}
       image_url: ${{ needs.build.outputs.image_url}}
-      trivy: false # until trivy has fixed issue https://github.com/aquasecurity/trivy/issues/3421
 
   deploy-test:
     needs: [build, security-scans]
@@ -142,7 +125,7 @@ jobs:
       pull-requests: write
       contents: read
       packages: write
-    uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v3.1.0
+    uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v4.0.0
     with:
       runner: atkv1-test
       environment: test
@@ -159,13 +142,13 @@ jobs:
       deploy_on: 'refs/heads/master'
 
   deploy-prod:
-    needs: [ build, post-build-attest, security-scans, deploy-test ]
+    needs: [ build, security-scans, deploy-test ]
     permissions:
       id-token: write
       pull-requests: write
       contents: read
       packages: write
-    uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v3.1.0
+    uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v4.0.0
     with:
       runner: atkv1-prod
       environment: prod
