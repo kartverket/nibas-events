@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
-import javax.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletRequest
 import org.mockito.Mockito.`when` as whenever
 
 class KeyAuthenticationConverterTest {

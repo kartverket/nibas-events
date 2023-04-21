@@ -20,8 +20,8 @@ import org.springframework.security.web.authentication.AuthenticationFilter
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter
 import java.util.logging.Logger
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
 
 @Configuration
 @EnableWebSecurity
@@ -54,7 +54,7 @@ class WebSecurityConfig constructor(private val environment: Environment) {
 
             return commonFilterChainConfig(
                 kac,
-                httpSecurity.requestMatchers { it.antMatchers(HttpMethod.POST, "/v1/events") }
+                httpSecurity.securityMatchers { it.requestMatchers(HttpMethod.POST, "/v1/events") }
             )
         }
     }
@@ -73,7 +73,7 @@ class WebSecurityConfig constructor(private val environment: Environment) {
             // Do nothing on successHandler, return response from original url
             apiKeyFilter.successHandler = AuthenticationSuccessHandler { _, _, _ -> }
 
-            return commonFilterChainConfig(kac, httpSecurity.antMatcher("/v1/events"))
+            return commonFilterChainConfig(kac, httpSecurity.securityMatcher("/v1/events"))
         }
     }
 
@@ -90,7 +90,7 @@ class WebSecurityConfig constructor(private val environment: Environment) {
             .formLogin().disable()
             .logout().disable()
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
-            .authorizeRequests { it.anyRequest().authenticated() }
+            .authorizeHttpRequests { it.anyRequest().authenticated() }
             .build()
 
     }

@@ -2,13 +2,13 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    val kotlinPluginVersion = "1.7.22"
+    val kotlinPluginVersion = "1.8.0"
 
-    id("org.springframework.boot") version "2.7.6"
+    id("org.springframework.boot") version "3.0.6"
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version kotlinPluginVersion
     kotlin("plugin.spring") version kotlinPluginVersion
-    id("org.flywaydb.flyway") version "9.11.0"
+    id("org.flywaydb.flyway") version "9.16.3"
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
 }
 
@@ -22,7 +22,7 @@ repositories {
 }
 
 // Dependency versions
-val SPRINGDOC_OPENAPI_VERSION = "1.6.13"
+val SPRINGDOC_OPENAPI_VERSION2 = "2.1.0"
 val LOGSTASH_VERSION = "7.2"
 
 ext["snakeyaml.version"] = "1.32"
@@ -36,11 +36,11 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.cloud:spring-cloud-starter")
-    implementation("org.springframework.cloud:spring-cloud-starter-vault-config:3.1.1")
+    implementation("org.springframework.cloud:spring-cloud-starter-vault-config:4.0.1")
 
-    implementation("org.springdoc:springdoc-openapi-webmvc-core:$SPRINGDOC_OPENAPI_VERSION")
-    implementation("org.springdoc:springdoc-openapi-kotlin:$SPRINGDOC_OPENAPI_VERSION")
-    implementation("org.springdoc:springdoc-openapi-ui:$SPRINGDOC_OPENAPI_VERSION")
+    implementation("org.springdoc:springdoc-openapi-starter-common:$SPRINGDOC_OPENAPI_VERSION2")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:$SPRINGDOC_OPENAPI_VERSION2")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$SPRINGDOC_OPENAPI_VERSION2")
 
     implementation("org.flywaydb:flyway-core")
 

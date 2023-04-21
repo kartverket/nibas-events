@@ -28,7 +28,7 @@ class NibasEventsConfig {
 class CustomRestExceptionHandler: ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(value = [ManglendeEventRadException::class])
-    fun handleManglendeEventRadException(ex: ManglendeEventRadException, request: WebRequest): ResponseEntity<Any> {
+    fun handleManglendeEventRadException(ex: ManglendeEventRadException, request: WebRequest): ResponseEntity<Any>? {
         val httpStatus = HttpStatus.UNPROCESSABLE_ENTITY
         this.logger.error("$httpStatus - ${ex.message}")
 
