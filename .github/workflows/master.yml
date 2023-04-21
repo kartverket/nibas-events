@@ -26,7 +26,7 @@ jobs:
       image_url: ${{ steps.setOutput.outputs.image_url }}
 
     steps:
-      - uses: szenius/set-timezone@v1.1
+      - uses: szenius/set-timezone@v1.2
         with:
           timezoneLinux: "Europe/Oslo"
       - uses: actions/checkout@v3
@@ -55,7 +55,7 @@ jobs:
 
       - name: Build docker and push
         id: build
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: .
           push: true
