@@ -37,7 +37,7 @@ class EventsController(
 
 @Service
 class EventService(
-    private val eventRepository: EventRepository
+    private val eventRepository: EventRepository,
 ) {
     @Transactional
     fun lagreEvent(event: Event) : Event {

@@ -30,7 +30,6 @@ class EventServiceIntTest : TestWithDbContainer() {
     @Autowired
     private lateinit var eventRepository: EventRepository
 
-
     @Test
     fun testSaveEntity() {
         val newEvent = eventService.lagreEvent(buildEvent())
