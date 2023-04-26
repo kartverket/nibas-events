@@ -23,7 +23,7 @@ repositories {
 
 // Dependency versions
 val SPRINGDOC_OPENAPI_VERSION2 = "2.1.0"
-val LOGSTASH_VERSION = "7.2"
+val LOGSTASH_VERSION = "7.3"
 
 ext["snakeyaml.version"] = "1.32"
 ext["jackson-databind.version"] = "2.13.4.2"
