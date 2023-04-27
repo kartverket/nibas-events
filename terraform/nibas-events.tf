@@ -64,13 +64,16 @@ resource "kubernetes_manifest" "nibas_events_application" {
         path             = "/actuator/health"
         port             = 8080
         failureThreshold = 3
-        timeout          = 1
+        timeout          = 5
         initialDelay     = 60
       }
 
       readiness = {
         path = "/actuator/health"
         port = 8080
+        failureThreshold = 3
+        timeout          = 5
+        initialDelay     = 60
       }
 
       resources = {

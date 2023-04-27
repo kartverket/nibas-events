@@ -80,5 +80,5 @@ spring:
     vault:
       uri: ${VAULT_ADDR:https://vault.dev.skip.statkart.no/}
       authentication: token
-      token: ${VAULT_TOKEN}
+      token: ${VAULT_TOKEN:myroot}
       enabled: true
