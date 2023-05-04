@@ -1,7 +1,7 @@
 name: nibas-master
 on:
   push:
-    branches: [ master ]
+    branches: [ legge-til-argo-cd ]
 
 permissions:
   id-token: write
@@ -89,6 +89,7 @@ jobs:
       packages: write
     uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v4.0.0
     with:
+      destroy: true
       runner: atkv1-dev
       environment: dev
       kubernetes_cluster: atkv1-dev
@@ -101,7 +102,7 @@ jobs:
       service_account: ${{ needs.set-variables.outputs.dev_service_account}}
       vault_role: nibas-events-write-role
       project_id: kubernetes-dev-94b9
-      deploy_on: 'refs/heads/master'
+      deploy_on: 'refs/heads/legge-til-argo-cd'
 
   deploy-argo:
     needs: build
@@ -138,6 +139,7 @@ jobs:
       packages: write
     uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v4.0.0
     with:
+      destroy: true
       runner: atkv1-test
       environment: test
       kubernetes_cluster: atkv1-test
@@ -150,7 +152,7 @@ jobs:
       auth_project_number: 935702487708
       vault_role: nibas-events-write-role
       project_id: kubernetes-test-94f6
-      deploy_on: 'refs/heads/master'
+      deploy_on: 'refs/heads/legge-til-argo-cd'
 
   deploy-prod:
     needs: [ build, security-scans, deploy-test ]
@@ -161,6 +163,7 @@ jobs:
       packages: write
     uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v4.0.0
     with:
+      destroy: true
       runner: atkv1-prod
       environment: prod
       kubernetes_cluster: atkv1-prod
@@ -173,4 +176,4 @@ jobs:
       auth_project_number: 468770754406
       vault_role: nibas-events-write-role
       project_id: kubernetes-prod-e4a2
-      deploy_on: 'refs/heads/master'
+      deploy_on: 'refs/heads/legge-til-argo-cd'
