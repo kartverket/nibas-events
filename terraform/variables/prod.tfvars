@@ -1,7 +1,0 @@
-ENVIRONMENT           = "prod"
-GCP_REGION            = "europe-north1"
-KUBERNETES_PROJECT_ID = "kubernetes-prod-e4a2"
-NIBAS_PROJECT_ID      = "nibas-prod-732a"
-KUBERNETES_CLUSTER    = "atkv1-prod"
-EXTERNAL_DNS_HOSTNAME = "nibas-events.prod.skip.statkart.no"
-VAULT_ADDR            = "https://vault.vault:8200"

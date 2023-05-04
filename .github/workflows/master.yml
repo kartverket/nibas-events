@@ -1,7 +1,7 @@
 name: nibas-master
 on:
   push:
-    branches: [ legge-til-argo-cd ]
+    branches: [ master ]
 
 permissions:
   id-token: write
@@ -80,30 +80,6 @@ jobs:
           echo "dev_auth_project_number=747318126147" >> $GITHUB_OUTPUT
           echo "dev_service_account=nibas-deploy@nibas-dev-075c.iam.gserviceaccount.com" >> $GITHUB_OUTPUT
 
-  deploy-dev:
-    needs: [build, set-variables]
-    permissions:
-      id-token: write
-      pull-requests: write
-      contents: read
-      packages: write
-    uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v4.0.0
-    with:
-      destroy: true
-      runner: atkv1-dev
-      environment: dev
-      kubernetes_cluster: atkv1-dev
-      terraform_workspace: dev
-      terraform_option_1: -var-file=variables/dev.tfvars
-      terraform_option_2: -var=NIBAS_EVENTS_VERSION=${{ needs.build.outputs.new_tag }}
-      terraform_init_option_1: -backend-config=backend/dev.gcs.tfbackend
-      working_directory: terraform
-      auth_project_number: ${{ needs.set-variables.outputs.dev_auth_project_number}}
-      service_account: ${{ needs.set-variables.outputs.dev_service_account}}
-      vault_role: nibas-events-write-role
-      project_id: kubernetes-dev-94b9
-      deploy_on: 'refs/heads/legge-til-argo-cd'
-
   deploy-argo:
     needs: build
     uses: kartverket/smia-apps/.github/workflows/release-app.yml@main
@@ -130,50 +106,3 @@ jobs:
       service_account: ${{ needs.set-variables.outputs.dev_service_account}}
       image_url: ${{ needs.build.outputs.image_url}}
 
-  deploy-test:
-    needs: [build, security-scans]
-    permissions:
-      id-token: write
-      pull-requests: write
-      contents: read
-      packages: write
-    uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v4.0.0
-    with:
-      destroy: true
-      runner: atkv1-test
-      environment: test
-      kubernetes_cluster: atkv1-test
-      terraform_workspace: test
-      terraform_option_1: -var-file=variables/test.tfvars
-      terraform_option_2: -var=NIBAS_EVENTS_VERSION=${{ needs.build.outputs.new_tag }}
-      terraform_init_option_1: -backend-config=backend/test.gcs.tfbackend
-      working_directory: terraform
-      service_account: nibas-deploy@nibas-test-36cb.iam.gserviceaccount.com
-      auth_project_number: 935702487708
-      vault_role: nibas-events-write-role
-      project_id: kubernetes-test-94f6
-      deploy_on: 'refs/heads/legge-til-argo-cd'
-
-  deploy-prod:
-    needs: [ build, security-scans, deploy-test ]
-    permissions:
-      id-token: write
-      pull-requests: write
-      contents: read
-      packages: write
-    uses: kartverket/github-workflows/.github/workflows/run-terraform.yml@v4.0.0
-    with:
-      destroy: true
-      runner: atkv1-prod
-      environment: prod
-      kubernetes_cluster: atkv1-prod
-      terraform_workspace: prod
-      terraform_option_1: -var-file=variables/prod.tfvars
-      terraform_option_2: -var=NIBAS_EVENTS_VERSION=${{ needs.build.outputs.new_tag }}
-      terraform_init_option_1: -backend-config=backend/prod.gcs.tfbackend
-      working_directory: terraform
-      service_account: nibas-deploy@nibas-prod-732a.iam.gserviceaccount.com
-      auth_project_number: 468770754406
-      vault_role: nibas-events-write-role
-      project_id: kubernetes-prod-e4a2
-      deploy_on: 'refs/heads/legge-til-argo-cd'
