@@ -2,7 +2,7 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    val kotlinPluginVersion = "1.8.0"
+    val kotlinPluginVersion = "1.8.21"
 
     id("org.springframework.boot") version "3.0.6"
     id("io.spring.dependency-management") version "1.1.0"
@@ -23,7 +23,7 @@ repositories {
 
 // Dependency versions
 val SPRINGDOC_OPENAPI_VERSION2 = "2.1.0"
-val LOGSTASH_VERSION = "7.2"
+val LOGSTASH_VERSION = "7.4"
 
 ext["snakeyaml.version"] = "1.32"
 ext["jackson-databind.version"] = "2.13.4.2"
@@ -49,8 +49,8 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.testcontainers:postgresql:1.17.6")
-    testImplementation("org.testcontainers:junit-jupiter:1.17.6")
+    testImplementation("org.testcontainers:postgresql:1.19.0")
+    testImplementation("org.testcontainers:junit-jupiter:1.19.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
 }
 
