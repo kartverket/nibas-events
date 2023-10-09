@@ -30,9 +30,19 @@ class CustomRestExceptionHandler: ResponseEntityExceptionHandler() {
     @ExceptionHandler(value = [ManglendeEventRadException::class])
     fun handleManglendeEventRadException(ex: ManglendeEventRadException, request: WebRequest): ResponseEntity<Any>? {
         val httpStatus = HttpStatus.UNPROCESSABLE_ENTITY
-        this.logger.error("$httpStatus - ${ex.message}")
+        return handleException(ex, "$httpStatus - ${ex.message}", httpStatus, HttpHeaders(), request)
+    }
 
-        return super.handleExceptionInternal(ex, ApiErrorResponse(httpStatus,ex.message), HttpHeaders(), httpStatus, request)
+    @ExceptionHandler(value = [Exception::class])
+    fun handleAllOtherExceptions(ex: Exception, request: WebRequest): ResponseEntity<Any>? {
+        val httpStatus = HttpStatus.INTERNAL_SERVER_ERROR
+        return handleException(ex, "$httpStatus - ${ex.message}", httpStatus, HttpHeaders(), request)
+    }
+
+    private fun handleException(ex: Exception, message: String, httpStatus: HttpStatus, headers: HttpHeaders, request: WebRequest): ResponseEntity<Any>? {
+        this.logger.error(message, ex)
+        val body = ApiErrorResponse(httpStatus, message)
+        return super.handleExceptionInternal(ex, body, headers, httpStatus, request)
     }
 }
 
