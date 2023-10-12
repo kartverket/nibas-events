@@ -9,7 +9,7 @@ plugins {
     kotlin("jvm") version kotlinPluginVersion
     kotlin("plugin.spring") version kotlinPluginVersion
     id("org.flywaydb.flyway") version "9.16.3"
-    id("io.gitlab.arturbosch.detekt") version "1.22.0"
+    id("io.gitlab.arturbosch.detekt") version "1.23.1"
 }
 
 group = "no.kartverket"
