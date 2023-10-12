@@ -10,9 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: szenius/set-timezone@v1.2
-        with:
-          timezoneLinux: "Europe/Oslo"
+      - name: Set local timezone
+        run: sudo timedatectl set-timezone "Europe/Oslo"
       - uses: actions/checkout@v3
       - name: Set up JDK
         uses: actions/setup-java@v3
