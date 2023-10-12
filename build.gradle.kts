@@ -22,7 +22,7 @@ repositories {
 }
 
 // Dependency versions
-val SPRINGDOC_OPENAPI_VERSION2 = "2.1.0"
+val SPRINGDOC_OPENAPI_VERSION2 = "2.2.0"
 val LOGSTASH_VERSION = "7.4"
 
 ext["snakeyaml.version"] = "1.32"
