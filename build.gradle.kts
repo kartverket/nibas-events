@@ -12,7 +12,7 @@ plugins {
 
 group = "no.kartverket"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_21
+java.sourceCompatibility = JavaVersion.VERSION_20
 
 repositories {
     mavenLocal()
@@ -55,7 +55,7 @@ dependencies {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "21"
+        jvmTarget = "20"
     }
 }
 
