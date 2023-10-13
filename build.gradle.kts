@@ -1,15 +1,13 @@
-import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    val kotlinPluginVersion = "1.8.21"
+    val kotlinPluginVersion = "1.9.10"
 
-    id("org.springframework.boot") version "3.0.6"
+    id("org.springframework.boot") version "3.1.4"
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version kotlinPluginVersion
     kotlin("plugin.spring") version kotlinPluginVersion
-    id("org.flywaydb.flyway") version "9.16.3"
-    id("io.gitlab.arturbosch.detekt") version "1.22.0"
+    id("org.flywaydb.flyway") version "9.22.3"
 }
 
 group = "no.kartverket"
@@ -22,7 +20,7 @@ repositories {
 }
 
 // Dependency versions
-val SPRINGDOC_OPENAPI_VERSION2 = "2.1.0"
+val SPRINGDOC_OPENAPI_VERSION2 = "2.2.0"
 val LOGSTASH_VERSION = "7.4"
 
 ext["snakeyaml.version"] = "1.32"
@@ -71,14 +69,4 @@ tasks.getByName<Jar>("jar") {
 
 flyway {
     schemas = arrayOf("nibas")
-}
-
-detekt {
-    config = files("detekt.yml")
-}
-
-tasks.withType<Detekt>().configureEach {
-    reports {
-        sarif.required.set(true)
-    }
 }
