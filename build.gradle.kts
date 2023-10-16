@@ -7,7 +7,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version kotlinPluginVersion
     kotlin("plugin.spring") version kotlinPluginVersion
-    id("org.flywaydb.flyway") version "9.22.0"
+    id("org.flywaydb.flyway") version "9.21.2"
 }
 
 group = "no.kartverket"
@@ -24,7 +24,6 @@ val SPRINGDOC_OPENAPI_VERSION2 = "2.2.0"
 val LOGSTASH_VERSION = "7.4"
 
 ext["snakeyaml.version"] = "1.32"
-ext["jackson-databind.version"] = "2.13.4.2"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
