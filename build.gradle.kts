@@ -7,12 +7,12 @@ plugins {
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version kotlinPluginVersion
     kotlin("plugin.spring") version kotlinPluginVersion
-    id("org.flywaydb.flyway") version "9.22.3"
+    id("org.flywaydb.flyway") version "9.16.3"
 }
 
 group = "no.kartverket"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_20
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenLocal()
@@ -55,7 +55,7 @@ dependencies {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "20"
+        jvmTarget = "17"
     }
 }
 
