@@ -7,7 +7,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version kotlinPluginVersion
     kotlin("plugin.spring") version kotlinPluginVersion
-    id("org.flywaydb.flyway") version "9.22.3"
+    id("org.flywaydb.flyway") version "9.22.1"
 }
 
 group = "no.kartverket"
