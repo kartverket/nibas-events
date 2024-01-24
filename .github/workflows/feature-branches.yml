@@ -1,6 +1,7 @@
 name: nibas-feature-branches
 
 on:
+  merge_group:
   pull_request:
     branches: [ main ]
 
