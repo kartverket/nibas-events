@@ -28,7 +28,7 @@ repositories {
 val SPRINGDOC_OPENAPI_VERSION2 = "2.3.0"
 val LOGSTASH_VERSION = "7.4"
 val FLYWAY_VERSION = "10.8.1"
-val TEST_CONTAINER_VERSION = "1.19.6"
+val TEST_CONTAINER_VERSION = "1.19.7"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
