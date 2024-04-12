@@ -1,9 +1,9 @@
 name: nibas-feature-branches
 
 on:
-  push:
-    branches-ignore:
-      - 'master'
+  merge_group:
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
@@ -12,11 +12,11 @@ jobs:
     steps:
       - name: Set local timezone
         run: sudo timedatectl set-timezone "Europe/Oslo"
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew

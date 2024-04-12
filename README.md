@@ -64,9 +64,7 @@ Gitt at <adresse-til-nibas-events> = localhost:8080
 
 # Formatering <a name="formatering"></a>
 
-Vi bruker EditorConfig for formatering (som IntelliJ default forstår). I tillegg benyttes Detekt i byggeløypa (anbefalt av SKIP). Dette kan en også sette opp i
-IntelliJ for å få varsler der. Gå til File->Settings->Plugins og installer Detekt-plugin. Etterpå gå til File->Settings->Tools->Detekt. Huk av Enable Detekt,
-Enable rules og Enable formatting. Under Configuration Files, legg til stien til detekt.yml som ligger på rota.
+Vi bruker EditorConfig for formatering (som IntelliJ default forstår).
 
 # Opprette database i miljø
 For nibas-events må vi (foreløpig) opprette applikasjonsbruker og database manuelt.
