@@ -84,7 +84,4 @@ spring:
     password: ${DB_PASSWORD:nibas}
   cloud:
     vault:
-      uri: ${VAULT_ADDR:https://vault.dev.skip.statkart.no/}
-      authentication: token
-      token: ${VAULT_TOKEN:myroot}
-      enabled: true
+      enabled: false
