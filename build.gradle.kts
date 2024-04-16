@@ -3,11 +3,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     val kotlinPluginVersion = "1.9.22"
 
-    id("org.springframework.boot") version "3.2.3"
+    id("org.springframework.boot") version "3.2.4"
     id("io.spring.dependency-management") version "1.1.4"
     kotlin("jvm") version kotlinPluginVersion
     kotlin("plugin.spring") version kotlinPluginVersion
-    id("org.flywaydb.flyway") version "10.8.1"
+    id("org.flywaydb.flyway") version "10.11.0"
 }
 
 group = "no.kartverket"
@@ -25,10 +25,10 @@ repositories {
 }
 
 // Dependency versions
-val SPRINGDOC_OPENAPI_VERSION2 = "2.3.0"
+val SPRINGDOC_OPENAPI_VERSION2 = "2.5.0"
 val LOGSTASH_VERSION = "7.4"
-val FLYWAY_VERSION = "10.8.1"
-val TEST_CONTAINER_VERSION = "1.19.6"
+val FLYWAY_VERSION = "10.11.0"
+val TEST_CONTAINER_VERSION = "1.19.7"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -74,3 +74,4 @@ tasks.getByName<Jar>("jar") {
 flyway {
     schemas = arrayOf("nibas")
 }
+
