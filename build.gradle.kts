@@ -29,6 +29,7 @@ val SPRINGDOC_OPENAPI_VERSION2 = "2.5.0"
 val LOGSTASH_VERSION = "7.4"
 val FLYWAY_VERSION = "10.11.0"
 val TEST_CONTAINER_VERSION = "1.19.7"
+val PROMETHEUS_VERSION = "1.12.5"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -45,6 +46,7 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$SPRINGDOC_OPENAPI_VERSION2")
 
     implementation("net.logstash.logback:logstash-logback-encoder:$LOGSTASH_VERSION")
+    implementation("io.micrometer:micrometer-registry-prometheus:$PROMETHEUS_VERSION")
 
     runtimeOnly("org.flywaydb:flyway-core:$FLYWAY_VERSION")
     runtimeOnly("org.flywaydb:flyway-database-postgresql:$FLYWAY_VERSION")

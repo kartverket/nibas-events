@@ -3,11 +3,13 @@ management:
     enabled-by-default: false
     web:
       exposure:
-        include: 'info, health'
+        include: 'info, health, prometheus'
     jmx:
       exposure:
         include: '*'
   endpoint:
+    prometheus:
+      enabled: true
     info:
       enabled: true
     health:
