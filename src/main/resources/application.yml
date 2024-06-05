@@ -54,24 +54,6 @@ spring:
   jackson:
     time-zone: "Europe/Oslo"
 
-  cloud:
-    vault:
-      uri: https://vault.vault:8200
-      authentication: kubernetes
-      kubernetes:
-        role: nibas # Er en rolle definert hos skip
-        kubernetes-path: ${KUBERNETES_CLUSTER}
-        service-account-token-file: /var/run/secrets/kubernetes.io/serviceaccount/token
-      ssl:
-        trust-store: classpath:ca.jks
-        trust-store-type: jks
-        trust-store-password: changeit
-      connection-timeout: 5000
-      read-timeout: 15000
-
-  config:
-    import: optional:vault://nibas/nibas-events-apikeys, optional:vault://nibas/nibas-events-db
-
   flyway:
     schemas: nibas
 
@@ -84,6 +66,3 @@ spring:
     url: ${DB_CONNECTION_STRING:jdbc:postgresql://localhost:5433/nibas}
     username: ${DB_USER:nibas}
     password: ${DB_PASSWORD:nibas}
-  cloud:
-    vault:
-      enabled: false

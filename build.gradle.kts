@@ -13,12 +13,6 @@ plugins {
 group = "no.kartverket"
 version = "0.0.1-SNAPSHOT"
 
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.0")
-    }
-}
-
 repositories {
     mavenLocal()
     mavenCentral()
@@ -38,8 +32,6 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.cloud:spring-cloud-starter")
-    implementation("org.springframework.cloud:spring-cloud-starter-vault-config")
 
     implementation("org.springdoc:springdoc-openapi-starter-common:$SPRINGDOC_OPENAPI_VERSION2")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:$SPRINGDOC_OPENAPI_VERSION2")
