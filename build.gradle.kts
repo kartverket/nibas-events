@@ -1,13 +1,13 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    val kotlinPluginVersion = "1.9.22"
+    val kotlinPluginVersion = "1.9.23"
 
     id("org.springframework.boot") version "3.2.4"
     id("io.spring.dependency-management") version "1.1.4"
     kotlin("jvm") version kotlinPluginVersion
     kotlin("plugin.spring") version kotlinPluginVersion
-    id("org.flywaydb.flyway") version "10.11.0"
+    id("org.flywaydb.flyway") version "10.17.1"
 }
 
 group = "no.kartverket"
@@ -20,9 +20,9 @@ repositories {
 
 // Dependency versions
 val SPRINGDOC_OPENAPI_VERSION2 = "2.5.0"
-val LOGSTASH_VERSION = "7.4"
-val FLYWAY_VERSION = "10.11.0"
-val TEST_CONTAINER_VERSION = "1.19.7"
+val LOGSTASH_VERSION = "8.0"
+val FLYWAY_VERSION = "10.17.1"
+val TEST_CONTAINER_VERSION = "1.20.1"
 val PROMETHEUS_VERSION = "1.12.5"
 
 dependencies {
