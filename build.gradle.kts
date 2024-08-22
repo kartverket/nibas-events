@@ -19,7 +19,7 @@ repositories {
 }
 
 // Dependency versions
-val SPRINGDOC_OPENAPI_VERSION2 = "2.5.0"
+val SPRINGDOC_OPENAPI_VERSION2 = "2.6.0"
 val LOGSTASH_VERSION = "8.0"
 val FLYWAY_VERSION = "10.17.1"
 val TEST_CONTAINER_VERSION = "1.20.1"
