@@ -4,7 +4,7 @@ plugins {
     val kotlinPluginVersion = "1.9.23"
 
     id("org.springframework.boot") version "3.2.4"
-    id("io.spring.dependency-management") version "1.1.4"
+    id("io.spring.dependency-management") version "1.1.6"
     kotlin("jvm") version kotlinPluginVersion
     kotlin("plugin.spring") version kotlinPluginVersion
     id("org.flywaydb.flyway") version "10.17.1"
