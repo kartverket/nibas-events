@@ -1,53 +1,61 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-plugins {
-    val kotlinPluginVersion = "1.9.23"
+// Versjonering settes i gradle/libs.versions.toml - vær obs. på at
+// intellij ikke plukker opp på endringer der, før gradle er reloadet.
+// Mer info: https://docs.gradle.org/current/userguide/platforms.html
 
-    id("org.springframework.boot") version "3.2.4"
-    id("io.spring.dependency-management") version "1.1.4"
-    kotlin("jvm") version kotlinPluginVersion
-    kotlin("plugin.spring") version kotlinPluginVersion
-    id("org.flywaydb.flyway") version "10.17.1"
+plugins {
+    alias(libs.plugins.spring.framework)
+    alias(libs.plugins.spring.dependency.management)
+    kotlin("jvm").version(libs.versions.kotlinPluginVersion)
+    kotlin("plugin.spring").version(libs.versions.kotlinPluginVersion)
+    alias(libs.plugins.flyway)
 }
 
 group = "no.kartverket"
 version = "0.0.1-SNAPSHOT"
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.3")
+    }
+}
 
 repositories {
     mavenLocal()
     mavenCentral()
 }
 
-// Dependency versions
-val SPRINGDOC_OPENAPI_VERSION2 = "2.5.0"
-val LOGSTASH_VERSION = "8.0"
-val FLYWAY_VERSION = "10.17.1"
-val TEST_CONTAINER_VERSION = "1.20.1"
-val PROMETHEUS_VERSION = "1.13.3"
+buildscript {
+    dependencies {
+        classpath(libs.flyway.postgres)
+    }
+}
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation(libs.spring.web)
+    implementation(libs.spring.jdbc)
+    implementation(libs.spring.security) // Web-security
+    implementation(libs.jackson.module.kotlin)
+    implementation(libs.kotlin.stdlib.jdk)
+    implementation(libs.spring.actuator)
+    implementation(libs.spring.validator)
 
-    implementation("org.springdoc:springdoc-openapi-starter-common:$SPRINGDOC_OPENAPI_VERSION2")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:$SPRINGDOC_OPENAPI_VERSION2")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$SPRINGDOC_OPENAPI_VERSION2")
+    implementation(libs.springdoc.openapi.common)
+    implementation(libs.springdoc.openapi.webmvc.api)
+    implementation(libs.springdoc.openapi.webmvc.ui)
 
-    implementation("net.logstash.logback:logstash-logback-encoder:$LOGSTASH_VERSION")
-    implementation("io.micrometer:micrometer-registry-prometheus:$PROMETHEUS_VERSION")
+    implementation(libs.logstash.logback.encoder)
+    implementation(libs.micrometer.registry.prometheus)
 
-    runtimeOnly("org.flywaydb:flyway-core:$FLYWAY_VERSION")
-    runtimeOnly("org.flywaydb:flyway-database-postgresql:$FLYWAY_VERSION")
-    runtimeOnly("org.postgresql:postgresql")
+    runtimeOnly(libs.flyway.core)
+    runtimeOnly(libs.flyway.postgres)
+    runtimeOnly(libs.postgres)
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.testcontainers:postgresql:$TEST_CONTAINER_VERSION")
-    testImplementation("org.testcontainers:junit-jupiter:$TEST_CONTAINER_VERSION")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
+    testImplementation(libs.spring.starter.test)
+    testImplementation(libs.testcontainers.postgres)
+    testImplementation(libs.testcontainers.junit)
+    testImplementation(libs.kotlin.mockito)
 }
 
 tasks.withType<KotlinCompile> {
