@@ -1,5 +1,5 @@
 [versions]
-flywayVersion = "10.17.3"
+flywayVersion = "10.18.0"
 kotlinMockitoVersion = "5.4.0"
 kotlinPluginVersion = "2.0.20"
 logstashVersion = "8.0"
