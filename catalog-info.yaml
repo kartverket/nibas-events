@@ -22,7 +22,7 @@ spec:
   type: "security_champion"
   parent: "eiendom_security_champions"
   members:
-  - "etse"
+  - "AleksanderWK"
   children:
   - "resource:nibas-events"
 ---
@@ -36,7 +36,6 @@ metadata:
 spec:
   type: "repo"
   owner: "security_champion_nibas-events"
-  system: "nibas"
   dependencyOf:
   - "component:nibas-events"
 ---
@@ -50,10 +49,8 @@ spec:
   type: "openapi"
   lifecycle: "production"
   owner: "smia"
-  system: "nibas"
   definition: |
     openapi: "3.0.0"
     info:
         title: nibas-events API
     paths:
-
