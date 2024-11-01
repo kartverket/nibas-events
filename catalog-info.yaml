@@ -14,32 +14,6 @@ spec:
   - "nibas-events-api"
 ---
 apiVersion: "backstage.io/v1alpha1"
-kind: "Group"
-metadata:
-  name: "security_champion_nibas-events"
-  title: "Security Champion nibas-events"
-spec:
-  type: "security_champion"
-  parent: "eiendom_security_champions"
-  members:
-  - "AleksanderWK"
-  children:
-  - "resource:nibas-events"
----
-apiVersion: "backstage.io/v1alpha1"
-kind: "Resource"
-metadata:
-  name: "nibas-events"
-  links:
-  - url: "https://github.com/kartverket/nibas-events"
-    title: "nibas-events på GitHub"
-spec:
-  type: "repo"
-  owner: "security_champion_nibas-events"
-  dependencyOf:
-  - "component:nibas-events"
----
-apiVersion: "backstage.io/v1alpha1"
 kind: "API"
 metadata:
   name: "nibas-events-api"
