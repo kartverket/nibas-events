@@ -7,6 +7,7 @@ import no.kartverket.nibas.api.v1.request.EventRadRequest
 import no.kartverket.nibas.api.v1.request.EventRequest
 import no.kartverket.nibas.api.v1.request.toEvent
 import no.kartverket.nibas.config.WebSecurityConfig
+import no.kartverket.nibas.config.NoSecurityConfig
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
@@ -25,7 +26,7 @@ import java.util.*
 
 @ActiveProfiles("security-off")
 @WebMvcTest(EventsController::class)
-@ImportAutoConfiguration(WebSecurityConfig::class)
+@ImportAutoConfiguration(WebSecurityConfig::class, NoSecurityConfig::class)
 class EventsControllerTest {
 
     @Autowired
