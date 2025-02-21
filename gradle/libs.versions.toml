@@ -5,7 +5,7 @@ kotlinPluginVersion = "2.0.20"
 logstashVersion = "8.0"
 prometheusVersion = "1.14.4"
 springDependencyManagementVersion = "1.1.7"
-springFrameworkVersion = "3.4.2"
+springFrameworkVersion = "3.4.3"
 springdocOpenapiVersion2 = "2.8.5"
 testContainerVersion = "1.20.5"
 
