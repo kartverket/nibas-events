@@ -1,4 +1,4 @@
-FROM eclipse-temurin:23-alpine
+FROM eclipse-temurin:24-alpine
 ARG project_version_arg
 
 ENV PROJECT_VERSION=$project_version_arg
