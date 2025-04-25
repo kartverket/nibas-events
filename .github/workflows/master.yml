@@ -50,7 +50,7 @@ jobs:
         with:
           registry: ${{ env.registry }}
           username: ${{ github.actor }}
-          password:  ${{ github.token }}
+          password: ${{ github.token }}
 
       - name: Build docker and push
         id: build
@@ -98,11 +98,11 @@ jobs:
   deploy-argo:
     permissions:
       id-token: write
-    needs: [pharos, build]
+    needs: [ pharos, build ]
     uses: kartverket/smia-apps/.github/workflows/release-app-octo-sts.yml@main
     with:
       application: nibas-events
       version: ${{ needs.build.outputs.new_tag }}
       deploy_dev: true
-      deploy_prod: true
+      deploy_prod: false
       identity: nibas
