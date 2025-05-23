@@ -6,7 +6,7 @@ logstashVersion = "8.1"
 prometheusVersion = "1.15.0"
 springDependencyManagementVersion = "1.1.7"
 springFrameworkVersion = "3.4.5"
-springdocOpenapiVersion2 = "2.8.6"
+springdocOpenapiVersion2 = "2.8.8"
 testContainerVersion = "1.21.0"
 
 [libraries]
