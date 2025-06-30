@@ -22,7 +22,7 @@ env:
 jobs:
     should-create-feature-env:
         if: ${{ github.event_name == 'pull_request' }}
-        uses: kartverket/nibas-events/.github/workflows/check-changes.yml@ts-2340
+        uses: kartverket/nibas-events/.github/workflows/check-changes.yml@TS-2340
         with:
             ignore-paths: "README.md,.github/,.vscode/,.security/"
 
@@ -106,7 +106,7 @@ jobs:
             packages: write
             security-events: write
             actions: read
-        uses: kartverket/nibas-events/.github/workflows/build-app.yml@ts-2340
+        uses: kartverket/nibas-events/.github/workflows/build-app.yml@TS-2340
         with:
             deploy_ghcr: true
         secrets: inherit
@@ -134,7 +134,7 @@ jobs:
         name: Deploy Pull Request (PR)
         permissions:
             id-token: write
-        uses: kartverket/smia-apps/.github/workflows/release-feature-branch.yml@ts-2340
+        uses: kartverket/smia-apps/.github/workflows/release-feature-branch.yml@TS-2340
         with:
             branch-name: ${{ needs.determine-branch-name-pr.outputs.BRANCH_NAME }}
             application: nibas-events
@@ -148,7 +148,7 @@ jobs:
         name: Deploy Pull Request (Manual)
         permissions:
             id-token: write
-        uses: kartverket/smia-apps/.github/workflows/release-feature-branch.yml@ts-2340
+        uses: kartverket/smia-apps/.github/workflows/release-feature-branch.yml@TS-2340
         with:
             branch-name: ${{ needs.determine-branch-name-manual.outputs.BRANCH_NAME }}
             application: nibas-events
