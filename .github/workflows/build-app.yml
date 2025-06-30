@@ -1,0 +1,98 @@
+name: Build app
+on:
+    merge_group:
+    pull_request:
+        branches: [main]
+    workflow_call:
+        inputs:
+            deploy_ghcr:
+                description: "Deploy to ghcr?"
+                default: "false"
+                type: string
+        outputs:
+            version:
+                description: "The version of the docker-image created"
+                value: ${{ jobs.build.outputs.new_tag }}
+            image_url:
+                description: "The full URL to the docker-image created"
+                value: ${{ jobs.build.outputs.image_url }}
+
+env:
+    image_name: nibas-events
+    registry: ghcr.io
+    registry_path: kartverket
+
+jobs:
+    build:
+        if: github.event.pull_request.head.repo.fork == false
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            packages: write
+            security-events: write
+            actions: read
+            issues: read
+            checks: write
+            pull-requests: write
+
+        outputs:
+            new_tag: ${{ steps.tag_version.outputs.new_tag }}
+            image_url: ${{ steps.setOutput.outputs.image_url }}
+
+        steps:
+            - name: Set local timezone
+              run: sudo timedatectl set-timezone "Europe/Oslo"
+
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Set up JDK
+              uses: actions/setup-java@v4
+              with:
+                  java-version: "21"
+                  distribution: "temurin"
+
+            - name: Grant execute permission for gradlew
+              run: chmod +x gradlew
+
+            - name: Build with Gradle
+              run: ./gradlew build --info
+              env:
+                  JAVA_TOOL_OPTIONS: "-Duser.timezone=Europe/Oslo"
+                  GH_PACKAGES_PAT: ${{ secrets.GH_PACKAGES_PAT }}
+
+            - name: Publish Test Results
+              uses: EnricoMi/publish-unit-test-result-action@v2
+              if: always()
+              with:
+                  files: |
+                      build/test-results/test/TEST-*.xml
+                      build/test-results/integrationTest/TEST-*.xml
+
+            - name: Bump version and push tag
+              id: tag_version
+              uses: mathieudutour/github-tag-action@v6.2
+              with:
+                  github_token: ${{ github.token }}
+
+            - name: Login to Github Container Registry
+              uses: docker/login-action@v3
+              with:
+                  registry: ${{ env.registry }}
+                  username: ${{ github.actor }}
+                  password: ${{ github.token }}
+
+            - name: Build docker and push
+              id: build
+              uses: docker/build-push-action@v6
+              with:
+                  context: .
+                  push: ${{ inputs.deploy_ghcr == 'true' }}
+                  tags: ${{ env.registry }}/${{ github.repository }}:${{ steps.tag_version.outputs.new_tag }} , ${{ env.registry }}/${{ github.repository }}:latest
+                  build-args: |
+                      project_version_arg=${{ steps.tag_version.outputs.new_tag }}
+
+            - name: Set output with build values
+              id: setOutput
+              run: |
+                  echo "image_url=${{ env.registry }}/${{ github.repository }}@${{ steps.build.outputs.digest }}" >> $GITHUB_OUTPUT
