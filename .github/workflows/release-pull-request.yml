@@ -106,6 +106,9 @@ jobs:
             packages: write
             security-events: write
             actions: read
+            issues: read
+            checks: write
+            pull-requests: write
         uses: kartverket/nibas-events/.github/workflows/build-app.yml@TS-2340
         with:
             deploy_ghcr: true
