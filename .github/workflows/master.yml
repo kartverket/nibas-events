@@ -104,5 +104,5 @@ jobs:
       application: nibas-events
       version: ${{ needs.build.outputs.new_tag }}
       deploy_dev: true
-      deploy_prod: false
+      deploy_prod: true
       identity: nibas
