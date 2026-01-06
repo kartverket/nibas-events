@@ -1,6 +1,6 @@
 package no.kartverket.nibas.config
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties
+import org.springframework.security.core.GrantedAuthority
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
@@ -31,10 +31,8 @@ class WebSecurityConfig(
     private val environment: Environment
 ) {
     companion object {
-        const val ORDER_OF_PUBLISHER_API_KEY_FILTER_CHAIN: Int =
-            SecurityProperties.BASIC_AUTH_ORDER - 2 // høyeste pri
-        const val ORDER_OF_CONSUMER_API_KEY_FILTER_CHAIN: Int =
-            SecurityProperties.BASIC_AUTH_ORDER - 1 // laveste pri
+        const val ORDER_OF_PUBLISHER_API_KEY_FILTER_CHAIN: Int = 1 // høyeste pri
+        const val ORDER_OF_CONSUMER_API_KEY_FILTER_CHAIN: Int = 2 // laveste pri
 
         const val SECURITY_OFF_PROFILE_STRING = "security-off"
         const val PRODUCTION_PROFILE_STRING = "prod"
@@ -159,7 +157,7 @@ class KeyAuthenticationToken(
     private var authenticated = false
 
     override fun getName(): String = principal
-    override fun getAuthorities() = null
+    override fun getAuthorities(): Collection<GrantedAuthority> = emptyList()
     override fun getCredentials() = keySupplier()
     override fun getDetails() = null
     override fun getPrincipal() = principal

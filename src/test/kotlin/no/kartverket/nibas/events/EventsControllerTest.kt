@@ -8,17 +8,17 @@ import no.kartverket.nibas.api.v1.request.EventRequest
 import no.kartverket.nibas.api.v1.request.toEvent
 import no.kartverket.nibas.config.NoSecurityConfig
 import no.kartverket.nibas.config.WebSecurityConfig
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.test.context.bean.override.mockito.MockitoBean
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.MediaType
 import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import java.time.LocalDate
@@ -31,8 +31,7 @@ class EventsControllerTest {
     @Autowired
     lateinit var mvc: MockMvc
 
-    @Autowired
-    lateinit var mapper: ObjectMapper
+    private val mapper = ObjectMapper().findAndRegisterModules()
 
     @MockitoBean
     private lateinit var eventService: EventService
