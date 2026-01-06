@@ -34,6 +34,5 @@ testcontainers-postgres = { module = "org.testcontainers:postgresql", version.re
 
 [plugins]
 flyway = { id = "org.flywaydb.flyway", version.ref = "flywayVersion" }
-kotlin-jvm = { id = "jvm", version.ref = "kotlinPluginVersion" }
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springDependencyManagementVersion" }
 spring-framework = { id = "org.springframework.boot", version.ref = "springFrameworkVersion" }
