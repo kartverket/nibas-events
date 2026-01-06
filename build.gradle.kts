@@ -31,7 +31,7 @@ buildscript {
 }
 
 dependencies {
-    implementation(libs.spring.web)
+    implementation(libs.spring.webmvc)
     implementation(libs.spring.jdbc)
     implementation(libs.spring.security) // Web-security
     implementation(libs.jackson.module.kotlin)
@@ -46,11 +46,12 @@ dependencies {
     implementation(libs.logstash.logback.encoder)
     implementation(libs.micrometer.registry.prometheus)
 
-    runtimeOnly(libs.flyway.core)
+    implementation(libs.spring.flyway)
     runtimeOnly(libs.flyway.postgres)
     runtimeOnly(libs.postgres)
 
     testImplementation(libs.spring.starter.test)
+    testImplementation(libs.spring.webmvc.test)
     testImplementation(libs.testcontainers.postgres)
     testImplementation(libs.testcontainers.junit)
     testImplementation(libs.kotlin.mockito)
