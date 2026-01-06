@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 // Versjonering settes i gradle/libs.versions.toml - vær obs. på at
 // intellij ikke plukker opp på endringer der, før gradle er reloadet.
 // Mer info: https://docs.gradle.org/current/userguide/platforms.html
@@ -33,7 +31,7 @@ buildscript {
 }
 
 dependencies {
-    implementation(libs.spring.web)
+    implementation(libs.spring.webmvc)
     implementation(libs.spring.jdbc)
     implementation(libs.spring.security) // Web-security
     implementation(libs.jackson.module.kotlin)
@@ -48,20 +46,21 @@ dependencies {
     implementation(libs.logstash.logback.encoder)
     implementation(libs.micrometer.registry.prometheus)
 
-    runtimeOnly(libs.flyway.core)
+    implementation(libs.spring.flyway)
     runtimeOnly(libs.flyway.postgres)
     runtimeOnly(libs.postgres)
 
     testImplementation(libs.spring.starter.test)
+    testImplementation(libs.spring.webmvc.test)
     testImplementation(libs.testcontainers.postgres)
     testImplementation(libs.testcontainers.junit)
     testImplementation(libs.kotlin.mockito)
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "21"
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
     }
 }
 
