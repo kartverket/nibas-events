@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 // Versjonering settes i gradle/libs.versions.toml - vær obs. på at
 // intellij ikke plukker opp på endringer der, før gradle er reloadet.
 // Mer info: https://docs.gradle.org/current/userguide/platforms.html
@@ -58,10 +56,10 @@ dependencies {
     testImplementation(libs.kotlin.mockito)
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "21"
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xjsr305=strict")
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
     }
 }
 
