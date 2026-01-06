@@ -22,7 +22,7 @@ env:
 jobs:
     should-create-feature-env:
         if: ${{ github.event_name == 'pull_request' }}
-        uses: kartverket/nibas-events/.github/workflows/check-changes.yml@TS-2340
+        uses: kartverket/nibas-events/.github/workflows/check-changes.yml@main
         with:
             ignore-paths: "README.md,.github/,.vscode/,.security/"
 
@@ -109,7 +109,7 @@ jobs:
             issues: read
             checks: write
             pull-requests: write
-        uses: kartverket/nibas-events/.github/workflows/build-app.yml@TS-2340
+        uses: kartverket/nibas-events/.github/workflows/build-app.yml@main
         with:
             deploy_ghcr: true
         secrets: inherit
