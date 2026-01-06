@@ -6,8 +6,8 @@ import no.kartverket.nibas.api.v1.common.FlateType
 import no.kartverket.nibas.api.v1.request.EventRadRequest
 import no.kartverket.nibas.api.v1.request.EventRequest
 import no.kartverket.nibas.api.v1.request.toEvent
-import no.kartverket.nibas.config.WebSecurityConfig
 import no.kartverket.nibas.config.NoSecurityConfig
+import no.kartverket.nibas.config.WebSecurityConfig
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
@@ -15,7 +15,7 @@ import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.MediaType
 import org.springframework.test.context.ActiveProfiles
@@ -28,26 +28,26 @@ import java.util.*
 @WebMvcTest(EventsController::class)
 @ImportAutoConfiguration(WebSecurityConfig::class, NoSecurityConfig::class)
 class EventsControllerTest {
-
     @Autowired
     lateinit var mvc: MockMvc
 
     @Autowired
     lateinit var mapper: ObjectMapper
 
-    @MockBean
+    @MockitoBean
     private lateinit var eventService: EventService
 
     private val uri = "/v1/events"
 
     @Test
     fun publiserEventReturns201_Created() {
-        val eventRequest = EventRequest(
-            LocalDate.now(),
-            setOf(
-                EventRadRequest(UUID.randomUUID().toString(), EventType.MODIFIED, FlateType.GRUNNKRETS, UUID.randomUUID().toString())
+        val eventRequest =
+            EventRequest(
+                LocalDate.now(),
+                setOf(
+                    EventRadRequest(UUID.randomUUID().toString(), EventType.MODIFIED, FlateType.GRUNNKRETS, UUID.randomUUID().toString())
+                )
             )
-        )
         whenever(eventService.lagreEvent(any())).thenReturn(eventRequest.toEvent())
 
         val postRequest = MockMvcRequestBuilders.post(uri)
@@ -60,7 +60,6 @@ class EventsControllerTest {
 
     @Test
     fun publiserEventUtenEventRadGir422_UNPROCESSABLE_ENTITY() {
-
         val eventRequest = EventRequest(LocalDate.now(), setOf())
         val postRequest = MockMvcRequestBuilders.post(uri)
         postRequest.content(mapper.writeValueAsString(eventRequest))
@@ -73,12 +72,13 @@ class EventsControllerTest {
 
     @Test
     fun testHentEvents() {
-        val event = EventRequest(
-            LocalDate.now(),
-            setOf(
-                EventRadRequest(UUID.randomUUID().toString(), EventType.MODIFIED, FlateType.GRUNNKRETS, UUID.randomUUID().toString())
-            )
-        ).toEvent()
+        val event =
+            EventRequest(
+                LocalDate.now(),
+                setOf(
+                    EventRadRequest(UUID.randomUUID().toString(), EventType.MODIFIED, FlateType.GRUNNKRETS, UUID.randomUUID().toString())
+                )
+            ).toEvent()
 
         whenever(eventService.findEventsBy(PageRequest.of(0, 100))).thenReturn(listOf(event))
         whenever(eventService.getTotalAntallEvents()).thenReturn(1)
