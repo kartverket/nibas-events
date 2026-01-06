@@ -43,7 +43,7 @@ interface EventsApi {
 
     @Operation(description = "Publiserer event til Nibas Event")
     @ApiResponses(
-        ApiResponse(responseCode = "201", description = "Created",),
+        ApiResponse(responseCode = "201", description = "Created"),
         ApiResponse(responseCode = "422", description = "Need atleast one EventRad in Event")
     )
     @ResponseStatus(HttpStatus.CREATED)

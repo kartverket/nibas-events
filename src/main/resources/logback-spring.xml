@@ -13,12 +13,14 @@
         </encoder>
     </appender>
 
-    <root level="INFO">
-        <springProfile name="!humanReadableLog">
+    <springProfile name="!humanReadableLog">
+        <root level="INFO">
             <appender-ref ref="stdout_json"/>
-        </springProfile>
-        <springProfile name="humanReadableLog">
+        </root>
+    </springProfile>
+    <springProfile name="humanReadableLog">
+        <root level="INFO">
             <appender-ref ref="stdout_humanreadable"/>
-        </springProfile>
-    </root>
+        </root>
+    </springProfile>
 </configuration>
