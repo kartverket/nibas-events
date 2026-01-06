@@ -1,6 +1,6 @@
 package no.kartverket.nibas.config
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties
+import org.springframework.security.core.GrantedAuthority
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
@@ -27,13 +27,12 @@ import jakarta.servlet.http.HttpServletResponse
 @Configuration
 @EnableWebSecurity
 @Profile("!security-off")
-class WebSecurityConfig(private val environment: Environment) {
-
+class WebSecurityConfig(
+    private val environment: Environment
+) {
     companion object {
-        const val ORDER_OF_PUBLISHER_API_KEY_FILTER_CHAIN: Int =
-            SecurityProperties.BASIC_AUTH_ORDER - 2 // høyeste pri
-        const val ORDER_OF_CONSUMER_API_KEY_FILTER_CHAIN: Int =
-            SecurityProperties.BASIC_AUTH_ORDER - 1 // laveste pri
+        const val ORDER_OF_PUBLISHER_API_KEY_FILTER_CHAIN: Int = 1 // høyeste pri
+        const val ORDER_OF_CONSUMER_API_KEY_FILTER_CHAIN: Int = 2 // laveste pri
 
         const val SECURITY_OFF_PROFILE_STRING = "security-off"
         const val PRODUCTION_PROFILE_STRING = "prod"
@@ -81,7 +80,6 @@ class WebSecurityConfig(private val environment: Environment) {
         kac: KeyAuthenticationConverter,
         httpSecurity: HttpSecurity
     ): SecurityFilterChain {
-
         val apiKeyFilter = AuthenticationFilter(KeyAuthenticationManager(), kac)
         // Do nothing on successHandler, return response from original url
         apiKeyFilter.successHandler = AuthenticationSuccessHandler { _, _, _ -> }
@@ -89,12 +87,9 @@ class WebSecurityConfig(private val environment: Environment) {
         return httpSecurity
             .addFilterAfter(apiKeyFilter, AbstractPreAuthenticatedProcessingFilter::class.java)
             .exceptionHandling { it.authenticationEntryPoint(UnauthorizedEntryPoint()) }
-            .csrf()
-            .disable()
-            .formLogin()
-            .disable()
-            .logout()
-            .disable()
+            .csrf { it.disable() }
+            .formLogin { it.disable() }
+            .logout { it.disable() }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authorizeHttpRequests { it.anyRequest().authenticated() }
             .build()
@@ -104,7 +99,9 @@ class WebSecurityConfig(private val environment: Environment) {
 @Configuration
 @EnableWebSecurity
 @Profile("security-off")
-class NoSecurityConfig(private val environment: Environment) {
+class NoSecurityConfig(
+    private val environment: Environment
+) {
     private val logger = Logger.getLogger(this::class.java.name)
 
     @Bean
@@ -117,7 +114,10 @@ class NoSecurityConfig(private val environment: Environment) {
         logger.warning(
             "\n\n\n---------\nOBS!! Started app with SECURITY SWITCHED OFF!\n---------\n\n"
         )
-        return http.csrf().disable().authorizeHttpRequests { it.anyRequest().permitAll() }.build()
+        return http
+            .csrf { it.disable() }
+            .authorizeHttpRequests { it.anyRequest().permitAll() }
+            .build()
     }
 }
 
@@ -140,23 +140,24 @@ class KeyAuthenticationManager : AuthenticationManager {
     }
 }
 
-class KeyAuthenticationConverter(apiKeySuppliers: Map<String, () -> String>) :
-    AuthenticationConverter {
+class KeyAuthenticationConverter(
+    apiKeySuppliers: Map<String, () -> String>
+) : AuthenticationConverter {
     private val apiKeys = apiKeySuppliers.entries.map { (k, v) -> KeyAuthenticationToken(v, k) }
 
-    override fun convert(request: HttpServletRequest): Authentication? {
-        return request.getHeader("Authorization")?.let { lookup(it.replace("Basic ", "")) }
-    }
+    override fun convert(request: HttpServletRequest): Authentication? = request.getHeader("Authorization")?.let { lookup(it.replace("Basic ", "")) }
 
     private fun lookup(apiKey: String) = apiKeys.find { it.credentials == apiKey }
 }
 
-class KeyAuthenticationToken(private val keySupplier: () -> String, private val principal: String) :
-    Authentication {
+class KeyAuthenticationToken(
+    private val keySupplier: () -> String,
+    private val principal: String
+) : Authentication {
     private var authenticated = false
 
     override fun getName(): String = principal
-    override fun getAuthorities() = null
+    override fun getAuthorities(): Collection<GrantedAuthority> = emptyList()
     override fun getCredentials() = keySupplier()
     override fun getDetails() = null
     override fun getPrincipal() = principal
