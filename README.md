@@ -66,21 +66,3 @@ Gitt at <adresse-til-nibas-events> = localhost:8080
 
 Vi bruker EditorConfig for formatering (som IntelliJ default forstår).
 
-# Opprette database i miljø
-For nibas-events må vi (foreløpig) opprette applikasjonsbruker og database manuelt.
-Root-bruker og connection-detaljer per miljø finnes i Vault under nøkkel `nibas-events-db-root`
-
-Logg på med root-bruker på gjeldende database og kjør følgende sql-er:
-```sql
-CREATE ROLE nibas WITH LOGIN PASSWORD '<lag et sikkert passord>';
-create database nibas with owner = nibas;
-```
-
-Opprett et innslag i Vault under nøkkel `nibas-events-db`. Dette skal ha følgende innhold:
-```json
-{
-  "spring.datasource.password": "<password>",
-  "spring.datasource.url": "jdbc:postgresql://<server>:<port>/nibas",
-  "spring.datasource.username": "nibas"
-}
-```
