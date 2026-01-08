@@ -1,4 +1,4 @@
-FROM eclipse-temurin:25-alpine@sha256:0c4c6300cc86efdf6454702336a0d60352e227f3a862e8ae9861f393f8f1ede9
+FROM eclipse-temurin:25-jdk@sha256:572fe7b5b3ca8beb3b3aca96a7a88f1f7bc98a3bdffd03784a4568962c1a963a
 ARG project_version_arg
 
 ENV PROJECT_VERSION=$project_version_arg
@@ -7,7 +7,7 @@ ENV GROUP_ID=199
 ENV USER_NAME=nibas-events
 ENV USER_ID=199
 
-RUN addgroup -g ${GROUP_ID} ${GROUP_NAME} && adduser --uid ${USER_ID} --disabled-password --gecos '' ${USER_NAME} --ingroup ${GROUP_NAME}
+RUN groupadd -g ${GROUP_ID} ${GROUP_NAME} && useradd --uid ${USER_ID}  -G ${GROUP_NAME} ${USER_NAME}
 
 # Set timezone to Oslo
 RUN apk add --no-cache tzdata
