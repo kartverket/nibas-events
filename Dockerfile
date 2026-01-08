@@ -7,7 +7,7 @@ ENV GROUP_ID=199
 ENV USER_NAME=nibas-events
 ENV USER_ID=199
 
-RUN addgroup -g ${GROUP_ID} ${GROUP_NAME} && adduser --uid ${USER_ID} --disabled-password --gecos '' ${USER_NAME} --ingroup ${GROUP_NAME}
+RUN groupadd -g ${GROUP_ID} ${GROUP_NAME} && useradd --uid ${USER_ID}  -G ${GROUP_NAME}
 
 # Set timezone to Oslo
 RUN apk add --no-cache tzdata
