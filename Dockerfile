@@ -1,21 +1,7 @@
-FROM eclipse-temurin:25-alpine@sha256:0c4c6300cc86efdf6454702336a0d60352e227f3a862e8ae9861f393f8f1ede9
-ARG project_version_arg
-
-ENV PROJECT_VERSION=$project_version_arg
-ENV GROUP_NAME=nibas
-ENV GROUP_ID=199
-ENV USER_NAME=nibas-events
-ENV USER_ID=199
-
-RUN addgroup -g ${GROUP_ID} ${GROUP_NAME} && adduser --uid ${USER_ID} --disabled-password --gecos '' ${USER_NAME} --ingroup ${GROUP_NAME}
-
-# Set timezone to Oslo
-RUN apk add --no-cache tzdata
-ENV TZ=Europe/Oslo
+FROM gcr.io/distroless/java25-debian13:nonroot@sha256:fa9bfc14924fa3b43d43944d93887155d19843b3aa45610b659496f928fe2a9c
 
 EXPOSE 8080
-RUN mkdir /nibas-events
-COPY build/libs/*.jar /nibas-events/app.jar
-VOLUME /tmp
-USER ${USER_ID}
-ENTRYPOINT ["java", "-XX:MaxRAMPercentage=70.0", "-Djava.security.egd=file:/dev/./urandom","-jar", "/nibas-events/app.jar"]
+
+COPY build/libs/*.jar /app.jar
+
+ENTRYPOINT ["java", "-XX:MaxRAMPercentage=70.0", "-Duser.timezone=Europe/Oslo", "-jar", "/app.jar"]
