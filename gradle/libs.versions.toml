@@ -1,6 +1,6 @@
 [versions]
 flywayVersion = "11.20.2"
-kotlinMockitoVersion = "6.2.1"
+kotlinMockitoVersion = "6.2.2"
 kotlinPluginVersion = "2.2.21"
 logstashVersion = "9.0"
 prometheusVersion = "1.16.2"
