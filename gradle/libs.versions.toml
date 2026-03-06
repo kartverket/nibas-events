@@ -1,5 +1,5 @@
 [versions]
-flywayVersion = "12.0.2"
+flywayVersion = "12.0.3"
 kotlinMockitoVersion = "6.2.3"
 kotlinPluginVersion = "2.2.21"
 logstashVersion = "9.0"
@@ -8,12 +8,12 @@ springDependencyManagementVersion = "1.1.7"
 springFrameworkVersion = "4.0.1"
 springdocOpenapiVersion2 = "3.0.1"
 testContainerVersion = "1.21.4"
+jacksonKotlinVersion = "3.1.0"
 
 [libraries]
-flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flywayVersion" }
 flyway-postgres = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flywayVersion" }
 spring-flyway = { module = "org.springframework.boot:spring-boot-starter-flyway" }
-jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
+jackson-module-kotlin = { module = "tools.jackson.module:jackson-module-kotlin", version.ref = "jacksonKotlinVersion" }
 kotlin-mockito = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "kotlinMockitoVersion" }
 kotlin-stdlib-jdk = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8" }
 logstash-logback-encoder = { module = "net.logstash.logback:logstash-logback-encoder", version.ref = "logstashVersion" }
