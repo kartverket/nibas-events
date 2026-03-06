@@ -10,7 +10,6 @@ springdocOpenapiVersion2 = "3.0.1"
 testContainerVersion = "1.21.4"
 
 [libraries]
-flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flywayVersion" }
 flyway-postgres = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flywayVersion" }
 spring-flyway = { module = "org.springframework.boot:spring-boot-starter-flyway" }
 jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
