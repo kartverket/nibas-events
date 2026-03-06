@@ -8,12 +8,13 @@ springDependencyManagementVersion = "1.1.7"
 springFrameworkVersion = "4.0.1"
 springdocOpenapiVersion2 = "3.0.1"
 testContainerVersion = "1.21.4"
-jacksonKotlinVersion = "3.1.0"
+jacksonVersion = "3.1.0"
 
 [libraries]
 flyway-postgres = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flywayVersion" }
 spring-flyway = { module = "org.springframework.boot:spring-boot-starter-flyway" }
-jackson-module-kotlin = { module = "tools.jackson.module:jackson-module-kotlin", version.ref = "jacksonKotlinVersion" }
+jackson-core = { module = "tools.jackson.core:jackson-core", version.ref = "jacksonVersion" }
+jackson-module-kotlin = { module = "tools.jackson.module:jackson-module-kotlin", version.ref = "jacksonVersion" }
 kotlin-mockito = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "kotlinMockitoVersion" }
 kotlin-stdlib-jdk = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8" }
 logstash-logback-encoder = { module = "net.logstash.logback:logstash-logback-encoder", version.ref = "logstashVersion" }
