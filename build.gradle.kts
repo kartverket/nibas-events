@@ -28,6 +28,12 @@ repositories {
 }
 
 buildscript {
+    configurations.classpath {
+        resolutionStrategy {
+            force("tools.jackson.core:jackson-core:${libs.versions.jacksonVersion.get()}")
+            force("tools.jackson.core:jackson-databind:${libs.versions.jacksonVersion.get()}")
+        }
+    }
     dependencies {
         classpath(libs.flyway.postgres)
     }
