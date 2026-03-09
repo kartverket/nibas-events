@@ -30,6 +30,7 @@ repositories {
 buildscript {
     configurations.classpath {
         resolutionStrategy {
+            // TODO: Fjern tvungen jackson-versjon når flyway ikke lenger bruker en sårbar versjon av jackson
             force("tools.jackson.core:jackson-core:${libs.versions.jacksonVersion.get()}")
             force("tools.jackson.core:jackson-databind:${libs.versions.jacksonVersion.get()}")
         }
