@@ -54,7 +54,7 @@ jobs:
 
       - name: Build docker and push
         id: build
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: true
@@ -90,7 +90,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Run Pharos"
-        uses: kartverket/pharos@v0.6.0
+        uses: kartverket/pharos@v0.6.2
         with:
           allow_severity_level: critical
           image_url: ${{ needs.build.outputs.image_url }}
