@@ -17,6 +17,9 @@ dependencyManagement {
     imports {
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:2025.1.1")
     }
+    dependencies {
+        dependency("tools.jackson.core:jackson-core:${libs.versions.jacksonVersion.get()}")
+    }
 }
 
 repositories {
@@ -25,6 +28,13 @@ repositories {
 }
 
 buildscript {
+    configurations.classpath {
+        resolutionStrategy {
+            // TODO: Fjern tvungen jackson-versjon når flyway ikke lenger bruker en sårbar versjon av jackson
+            force("tools.jackson.core:jackson-core:${libs.versions.jacksonVersion.get()}")
+            force("tools.jackson.core:jackson-databind:${libs.versions.jacksonVersion.get()}")
+        }
+    }
     dependencies {
         classpath(libs.flyway.postgres)
     }
@@ -34,6 +44,7 @@ dependencies {
     implementation(libs.spring.webmvc)
     implementation(libs.spring.jdbc)
     implementation(libs.spring.security) // Web-security
+    implementation(libs.jackson.core)
     implementation(libs.jackson.module.kotlin)
     implementation(libs.kotlin.stdlib.jdk)
     implementation(libs.spring.actuator)
