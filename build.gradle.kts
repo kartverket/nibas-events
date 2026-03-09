@@ -17,6 +17,9 @@ dependencyManagement {
     imports {
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:2025.1.1")
     }
+    dependencies {
+        dependency("tools.jackson.core:jackson-core:${libs.versions.jacksonVersion.get()}")
+    }
 }
 
 repositories {
@@ -34,6 +37,7 @@ dependencies {
     implementation(libs.spring.webmvc)
     implementation(libs.spring.jdbc)
     implementation(libs.spring.security) // Web-security
+    implementation(libs.jackson.core)
     implementation(libs.jackson.module.kotlin)
     implementation(libs.kotlin.stdlib.jdk)
     implementation(libs.spring.actuator)
