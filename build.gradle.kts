@@ -34,6 +34,7 @@ dependencies {
     implementation(libs.spring.webmvc)
     implementation(libs.spring.jdbc)
     implementation(libs.spring.security) // Web-security
+    implementation(libs.jackson.core)
     implementation(libs.jackson.module.kotlin)
     implementation(libs.kotlin.stdlib.jdk)
     implementation(libs.spring.actuator)
