@@ -2,7 +2,7 @@
 flywayVersion = "12.8.1"
 jacksonVersion = "3.2.0"
 kotlinMockitoVersion = "6.3.0"
-kotlinPluginVersion = "2.2.21"
+kotlinPluginVersion = "2.3.21"
 logstashVersion = "9.0"
 prometheusVersion = "1.17.0"
 springDependencyManagementVersion = "1.1.7"
