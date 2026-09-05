@@ -39,10 +39,7 @@ updates:
     registries:
       - "docker-hardened-images"
     schedule:
-      interval: weekly
-      day: "monday"
-      time: "01:32"
-      timezone: "Europe/Oslo"
+      interval: "daily"
 
   - package-ecosystem: "terraform"
     directory: "/terraform"
