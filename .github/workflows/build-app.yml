@@ -99,5 +99,5 @@ jobs:
             - name: Set output with build values
               id: setOutput
               run: |
-                  echo "image_url=${{ env.registry }}/${{ github.repository }}@${{ steps.build.outputs.digest }}" >> $GITHUB_OUTPUT
-                  echo "digest=${{ steps.build.outputs.digest }}" >> $GITHUB_OUTPUT
+                  echo "image_url=${{ env.registry }}/${{ github.repository }}@${{ steps.build.outputs.digest }}" >> "$GITHUB_OUTPUT"
+                  echo "digest=${{ steps.build.outputs.digest }}" >> "$GITHUB_OUTPUT"
