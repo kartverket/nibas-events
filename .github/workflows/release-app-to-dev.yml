@@ -30,12 +30,13 @@ jobs:
         with:
           allow_severity_level: critical
           image_url: ${{ needs.build.outputs.image_url }}
+          trivy_vex: 'true'
 
   deploy-dev:
     permissions:
       contents: read
       id-token: write
-    needs: [build, pharos]
+    needs: build
     uses: kartverket/smia-workflows/.github/workflows/deploy-app.yml@main
     with:
       application: nibas-events
