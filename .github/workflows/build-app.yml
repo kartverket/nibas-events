@@ -16,6 +16,9 @@ on:
             image_url:
                 description: "The full URL to the docker-image created"
                 value: ${{ jobs.build.outputs.image_url }}
+            digest:
+                description: "The digest of the built docker image"
+                value: ${{ jobs.build.outputs.digest }}
 
 env:
     image_name: nibas-events
@@ -38,6 +41,7 @@ jobs:
         outputs:
             new_tag: ${{ steps.tag_version.outputs.new_tag }}
             image_url: ${{ steps.setOutput.outputs.image_url }}
+            digest: ${{ steps.setOutput.outputs.digest }}
 
         steps:
             - name: Set local timezone
@@ -96,3 +100,4 @@ jobs:
               id: setOutput
               run: |
                   echo "image_url=${{ env.registry }}/${{ github.repository }}@${{ steps.build.outputs.digest }}" >> $GITHUB_OUTPUT
+                  echo "digest=${{ steps.build.outputs.digest }}" >> $GITHUB_OUTPUT
