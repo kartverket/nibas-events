@@ -1,4 +1,4 @@
-name: Release app
+name: Release app to DEV
 on:
   push:
     branches: [main]
