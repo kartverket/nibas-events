@@ -66,6 +66,7 @@ jobs:
               uses: EnricoMi/publish-unit-test-result-action@d0a4676d0e0b938bc201470d88276b7c74c712b3 # v2.24.0
               if: always()
               with:
+                  comment_mode: off
                   files: |
                       build/test-results/test/TEST-*.xml
                       build/test-results/integrationTest/TEST-*.xml
