@@ -1,12 +1,12 @@
 [versions]
-flywayVersion = "13.2.0"
-jacksonVersion = "3.2.1"
+flywayVersion = "13.5.0"
+jacksonVersion = "3.2.2"
 kotlinMockitoVersion = "6.3.0"
 kotlinPluginVersion = "2.3.21"
 logstashVersion = "9.0"
-prometheusVersion = "1.17.0"
+prometheusVersion = "1.17.1"
 springDependencyManagementVersion = "1.1.7"
-springFrameworkVersion = "4.1.0"
+springFrameworkVersion = "4.1.1"
 springdocOpenapiVersion2 = "3.1.0"
 testContainerVersion = "1.21.4"
 

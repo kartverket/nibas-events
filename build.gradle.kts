@@ -15,7 +15,7 @@ version = "0.0.1-SNAPSHOT"
 
 dependencyManagement {
     imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2025.1.2")
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2025.1.3")
     }
     dependencies {
         dependency("tools.jackson.core:jackson-core:${libs.versions.jacksonVersion.get()}")
