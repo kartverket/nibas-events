@@ -1,0 +1,47 @@
+name: Release app to DEV
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    permissions:
+      contents: write
+      packages: write
+      security-events: write
+      actions: read
+    uses: ./.github/workflows/build-app.yml
+    with:
+      deploy_ghcr: true
+    secrets: inherit
+
+  pharos:
+    name: Run Pharos security scan
+    needs: build
+    permissions:
+      actions: read
+      packages: read
+      contents: read
+      security-events: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Run Pharos"
+        uses: kartverket/pharos@446d11f033ffe30b4c91f885c3ad34ea3d8c6af7 # v0.7.0
+        with:
+          allow_severity_level: critical
+          image_url: ${{ needs.build.outputs.image_url }}
+          trivy_vex: 'true'
+
+  deploy-dev:
+    permissions:
+      contents: read
+      id-token: write
+    needs: build
+    uses: kartverket/smia-workflows/.github/workflows/deploy-app.yml@main
+    with:
+      application: nibas-events
+      version: ${{ needs.build.outputs.version }}
+      digest: ${{ needs.build.outputs.digest }}
+      environment: dev
+      namespace: nibas-main
+      identity: nibas

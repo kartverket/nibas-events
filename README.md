@@ -1,6 +1,6 @@
 # nibas-events
 
-Spring Boot applikasjon som håndterer events i Nasjonal inndelingsbase.
+Spring Boot API for å registrere og hente events i NIBAS. Hver event består av en gyldighetsdato og én eller flere rader som beskriver endringer i geografiske objekter.
 
 # Innholdsfortegnelse
 
@@ -65,4 +65,3 @@ Gitt at <adresse-til-nibas-events> = localhost:8080
 # Formatering <a name="formatering"></a>
 
 Vi bruker EditorConfig for formatering (som IntelliJ default forstår).
-

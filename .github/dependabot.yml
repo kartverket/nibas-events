@@ -29,21 +29,14 @@ updates:
       day: "monday"
       time: "01:32"
       timezone: "Europe/Oslo"
+    groups:
+      codeql:
+        patterns:
+          - "github/codeql-action*"
 
   - package-ecosystem: "docker"
     directory: "/"
     registries:
       - "docker-hardened-images"
     schedule:
-      interval: weekly
-      day: "monday"
-      time: "01:32"
-      timezone: "Europe/Oslo"
-
-  - package-ecosystem: "terraform"
-    directory: "/terraform"
-    schedule:
-      interval: weekly
-      day: "monday"
-      time: "01:32"
-      timezone: "Europe/Oslo"
+      interval: "daily"
