@@ -4,14 +4,15 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
-import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.utility.DockerImageName
+import org.testcontainers.postgresql.PostgreSQLContainer
 
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 class TestWithDbContainer {
 
-    companion object dbContainer : PostgreSQLContainer<dbContainer>(
-        DockerImageName.parse("postgis/postgis:14-3.2-alpine").asCompatibleSubstituteFor("postgres")
+    companion object dbContainer : PostgreSQLContainer(
+        DockerImageName.parse("postgis/postgis:14-3.2-alpine")
+            .asCompatibleSubstituteFor("postgres"),
     ) {
         init {
             withDatabaseName("postgres")
