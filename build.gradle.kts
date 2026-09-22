@@ -64,7 +64,6 @@ dependencies {
     testImplementation(libs.spring.starter.test)
     testImplementation(libs.spring.webmvc.test)
     testImplementation(libs.testcontainers.postgres)
-    testImplementation(libs.testcontainers.junit)
     testImplementation(libs.kotlin.mockito)
 }
 
@@ -86,4 +85,3 @@ tasks.getByName<Jar>("jar") {
 flyway {
     schemas = arrayOf("nibas")
 }
-

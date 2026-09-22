@@ -8,7 +8,7 @@ prometheusVersion = "1.17.1"
 springDependencyManagementVersion = "1.1.7"
 springFrameworkVersion = "4.1.1"
 springdocOpenapiVersion2 = "3.1.0"
-testContainerVersion = "1.21.4"
+testContainerVersion = "2.0.5"
 
 [libraries]
 flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flywayVersion" }
@@ -31,8 +31,7 @@ spring-webmvc-test = { module = "org.springframework.boot:spring-boot-starter-we
 springdoc-openapi-common = { module = "org.springdoc:springdoc-openapi-starter-common", version.ref = "springdocOpenapiVersion2" }
 springdoc-openapi-webmvc-api = { module = "org.springdoc:springdoc-openapi-starter-webmvc-api", version.ref = "springdocOpenapiVersion2" }
 springdoc-openapi-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdocOpenapiVersion2" }
-testcontainers-junit = { module = "org.testcontainers:junit-jupiter", version.ref = "testContainerVersion" }
-testcontainers-postgres = { module = "org.testcontainers:postgresql", version.ref = "testContainerVersion" }
+testcontainers-postgres = { module = "org.testcontainers:testcontainers-postgresql", version.ref = "testContainerVersion" }
 
 [plugins]
 flyway = { id = "org.flywaydb.flyway", version.ref = "flywayVersion" }
