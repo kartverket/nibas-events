@@ -1,4 +1,4 @@
-FROM dhi.io/eclipse-temurin:26-alpine3.23@sha256:d4bb66dd634d393064fdc5f6c4a290f0107c457106cae8b57f99b1aa7c8228f5
+FROM dhi.io/eclipse-temurin:26-alpine3.23@sha256:eae0cfd72bae1bd05399e30675312f056570fa181121b354ddbd02032514031a
 EXPOSE 8080
 
 USER nonroot
