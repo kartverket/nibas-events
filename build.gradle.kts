@@ -36,7 +36,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath(libs.flyway.postgres)
+        classpath(libs.flyway.postgres.plugin)
     }
 }
 
