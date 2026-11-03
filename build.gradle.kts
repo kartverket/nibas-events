@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.spring.dependency.management)
     kotlin("jvm").version(libs.versions.kotlinPluginVersion)
     kotlin("plugin.spring").version(libs.versions.kotlinPluginVersion)
-    alias(libs.plugins.flyway)
 }
 
 group = "no.kartverket"
@@ -34,9 +33,6 @@ buildscript {
             force("tools.jackson.core:jackson-core:${libs.versions.jacksonVersion.get()}")
             force("tools.jackson.core:jackson-databind:${libs.versions.jacksonVersion.get()}")
         }
-    }
-    dependencies {
-        classpath(libs.flyway.postgres)
     }
 }
 
@@ -82,6 +78,3 @@ tasks.getByName<Jar>("jar") {
     enabled = false
 }
 
-flyway {
-    schemas = arrayOf("nibas")
-}

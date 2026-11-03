@@ -1,5 +1,4 @@
 [versions]
-flywayVersion = "13.10.3"
 jacksonVersion = "3.2.3"
 kotlinMockitoVersion = "6.4.0"
 kotlinPluginVersion = "2.3.21"
@@ -11,8 +10,7 @@ springdocOpenapiVersion2 = "3.1.1"
 testContainerVersion = "2.0.5"
 
 [libraries]
-flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flywayVersion" }
-flyway-postgres = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flywayVersion" }
+flyway-postgres = { module = "org.flywaydb:flyway-database-postgresql" }
 spring-flyway = { module = "org.springframework.boot:spring-boot-starter-flyway" }
 jackson-core = { module = "tools.jackson.core:jackson-core", version.ref = "jacksonVersion" }
 jackson-module-kotlin = { module = "tools.jackson.module:jackson-module-kotlin", version.ref = "jacksonVersion" }
@@ -34,6 +32,5 @@ springdoc-openapi-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starte
 testcontainers-postgres = { module = "org.testcontainers:testcontainers-postgresql", version.ref = "testContainerVersion" }
 
 [plugins]
-flyway = { id = "org.flywaydb.flyway", version.ref = "flywayVersion" }
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springDependencyManagementVersion" }
 spring-framework = { id = "org.springframework.boot", version.ref = "springFrameworkVersion" }
