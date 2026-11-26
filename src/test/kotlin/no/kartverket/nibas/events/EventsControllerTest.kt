@@ -1,6 +1,5 @@
 package no.kartverket.nibas.events
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import no.kartverket.nibas.api.v1.common.EventType
 import no.kartverket.nibas.api.v1.common.FlateType
 import no.kartverket.nibas.api.v1.request.EventRadRequest
@@ -22,6 +21,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import java.time.LocalDate
+import tools.jackson.databind.json.JsonMapper
 import java.util.*
 
 @ActiveProfiles("security-off")
@@ -31,7 +31,7 @@ class EventsControllerTest {
     @Autowired
     lateinit var mvc: MockMvc
 
-    private val mapper = ObjectMapper().findAndRegisterModules()
+    private val mapper = JsonMapper.builder().findAndAddModules().build()
 
     @MockitoBean
     private lateinit var eventService: EventService
