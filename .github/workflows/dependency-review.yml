@@ -31,5 +31,20 @@ jobs:
         with:
           comment-summary-in-pr: always
           allow-licenses: MIT, Apache-2.0, EPL-2.0, BSD-3-Clause, BSD-2-Clause, CPL-1.0, LicenseRef-scancode-w3c-docs-20021231
+          # Feilmeldt lisens i GitHub-metadata (logback er EPL-2.0 ELLER LGPL-2.1, JUnit er EPL-2.0 osv.)
+          allow-dependencies-licenses: >-
+            pkg:maven/ch.qos.logback/logback-classic,
+            pkg:maven/ch.qos.logback/logback-core,
+            pkg:maven/ch.qos.logback/logback-parent,
+            pkg:maven/org.bouncycastle/bc-jdk18on-bom,
+            pkg:maven/org.flywaydb/flyway-database-postgresql,
+            pkg:maven/org.junit.jupiter/junit-jupiter,
+            pkg:maven/org.junit.jupiter/junit-jupiter-api,
+            pkg:maven/org.junit.jupiter/junit-jupiter-engine,
+            pkg:maven/org.junit.jupiter/junit-jupiter-params,
+            pkg:maven/org.junit.platform/junit-platform-commons,
+            pkg:maven/org.junit.platform/junit-platform-engine,
+            pkg:maven/org.junit.platform/junit-platform-launcher,
+            pkg:maven/org.junit/junit-bom
 
           
